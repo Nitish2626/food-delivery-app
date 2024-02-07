@@ -1,9 +1,8 @@
 import logo from "../../images/logo.png";
-import dark from "../../images/dark-theme.png";
-import light from "../../images/light-theme.png";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import Button from "../button/Button";
+import AuthLink from "../auth link/AuthLink";
+import ThemeButton from "../theme button/ThemeButton";
 
 const NavigationBar = () => {
 
@@ -22,24 +21,13 @@ const NavigationBar = () => {
             </section >
 
             <section className="w-full flex items-center justify-end gap-3 pr-2">
-                <button
-                    className={`w-7 h-7 flex items-center justify-center rounded-full shadow-md  ${theme?.darkTheme ? "bg-black shadow-none hover:bg-gray-700" : "bg-white shadow-gray-300 hover:bg-gray-300"}`}
-                    onClick={theme?.changeTheme}>
-
-                    <img
-                        src={theme?.darkTheme ? light : dark}
-                        className={`w-5 h-5 ${theme?.darkTheme ? "invert" : ""}`}
-                        alt={theme?.darkTheme ? "Light Theme" : "Dark Theme"}
-                        title={theme?.darkTheme ? "Light Theme" : "Dark Theme"}
-                    />
-
-                </button>
-
-                <Button
+                <ThemeButton />
+                <AuthLink 
+                    to="/login"
                     text="Login"
                 />
-
-                <Button
+                <AuthLink
+                    to="/signup"
                     text="Signup"
                 />
             </section>

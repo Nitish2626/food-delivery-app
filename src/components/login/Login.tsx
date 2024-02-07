@@ -1,34 +1,57 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
-import Section from "../section/Section";
+import Section from "../input section/InputSection";
 import { MdLogin } from "react-icons/md";
+import BackButton from "../back button/BackButton";
+import ThemeButton from "../theme button/ThemeButton";
+import { ThemeContext } from "../../context/ThemeContext";
+import InputSection from "../input section/InputSection";
 
 const Login = () => {
 
-    const [username, setUsername] = useState<string>("");
+    const theme = useContext(ThemeContext);
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const [userspan, setUserspan] = useState<string>("");
     const [emailspan, setEmailspan] = useState<string>("");
     const [passwordspan, setPasswordspan] = useState<string>("");
 
     return (
-        <div className="w-full h-screen flex items-center justify-center">
+        <div
+            className={`w-full h-screen flex flex-col items-center gap-6 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
+        >
+            <section
+                className={`w-full flex items-start justify-between fixed top-0 py-1 px-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
+            >
+                <BackButton />
+                <ThemeButton />
+            </section>
+
+            <h1 className={`text-lg mt-20 ${theme?.darkTheme ? "text-white" : "text-black"}`}>
+                Login as
+                <strong className="text-blue-500 mx-1">
+                    Customer
+                </strong>
+                or
+                <strong className="text-blue-500 mx-1">
+                    Business
+                </strong>
+            </h1>
 
             <form
                 method="post"
-                className="w-11/12 flex flex-col items-center justify-center rounded-md py-3 shadow-[0px_0px_5px_0px_black]"
+                className={`w-11/12 flex flex-col items-center justify-center rounded-lg py-3 ${theme?.darkTheme ? "bg-gray-900 shadow-none" : "bg-white shadow-md shadow-gray-300 "}`}
             >
-                <Section
+                <InputSection
                     src={mail}
                     type="email"
                     placeholder="Email"
                     span={emailspan}
                 />
-                <Section
+                <InputSection
                     src={pw}
                     type="password"
                     placeholder="Password"
@@ -36,23 +59,23 @@ const Login = () => {
                 />
                 <button
                     type="submit"
-                    className="w-28 h-9 flex items-center justify-evenly bg-blue-600 text-white rounded-lg text-lg my-3 shadow-[2px_2px_10px_0px_grey] hover:bg-white hover:text-blue-600"
+                    className={`w-28 h-9 flex items-center justify-evenly text-white rounded-lg text-lg my-3  ${theme?.darkTheme ? "bg-gray-800 hover:bg-gray-700" : "bg-blue-600  shadow-md shadow-gray-300 hover:bg-white hover:text-blue-600"}`}
                 >
-                    Sign Up
+                    Login
                     <MdLogin
                         className="w-6 h-6"
                     />
                 </button>
 
-                <span className="my-2 text-gray-400">
+                <span className="text-gray-400">
                     OR
                 </span>
 
                 <Link
-                    to="/login"
-                    className="text-blue-400 text-lg font-semibold"
+                    to="/signup"
+                    className="text-blue-500 text-lg font-semibold"
                 >
-                    Login
+                    Signup
                 </Link>
             </form>
         </div>

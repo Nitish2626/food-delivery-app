@@ -15,7 +15,7 @@ const AuthLink = ({ to, text }: Props) => {
   return (
     <Link
       to={to}
-      className={`text-lg rounded-md px-2 shadow-md  py-1 ${theme?.darkTheme ? "bg-black text-white shadow-none hover:text-gray-300" : "bg-white shadow-gray-300 hover:text-gray-400"}`}
+      className={`text-lg rounded-md px-2 shadow-md  py-1 ${theme?.darkTheme ? "bg-black text-white shadow-none hover:text-gray-300" : "bg-white shadow-gray-200 hover:text-gray-400"}`}
       >
       {text}
     </Link>
