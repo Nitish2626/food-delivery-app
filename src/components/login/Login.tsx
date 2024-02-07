@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useRef } from "react";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import Section from "../input section/InputSection";
@@ -13,11 +13,12 @@ const Login = () => {
 
     const theme = useContext(ThemeContext);
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
 
-    const [emailspan, setEmailspan] = useState<string>("");
-    const [passwordspan, setPasswordspan] = useState<string>("");
+    const login=(e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
+    };
 
     return (
         <div
@@ -44,18 +45,21 @@ const Login = () => {
             <form
                 method="post"
                 className={`w-11/12 flex flex-col items-center justify-center rounded-lg py-3 ${theme?.darkTheme ? "bg-gray-900 shadow-none" : "bg-white shadow-md shadow-gray-300 "}`}
+                onSubmit={login}
             >
                 <InputSection
+                    reference={emailRef}
                     src={mail}
                     type="email"
                     placeholder="Email"
-                    span={emailspan}
+                    span=""
                 />
                 <InputSection
+                    reference={passwordRef}
                     src={pw}
                     type="password"
                     placeholder="Password"
-                    span={passwordspan}
+                    span=""
                 />
                 <button
                     type="submit"

@@ -1,25 +1,29 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import user from "../../images/user.png";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
-import Section from "../input section/InputSection";
 import { FaUserPlus } from "react-icons/fa6";
 import BackButton from "../back button/BackButton";
 import ThemeButton from "../theme button/ThemeButton";
 import { ThemeContext } from "../../context/ThemeContext";
+import InputSection from "../input section/InputSection";
 
 const Signup = () => {
 
     const theme = useContext(ThemeContext);
 
-    const [username, setUsername] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const userRef = useRef<HTMLInputElement | null>(null);
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
 
-    const [userspan, setUserspan] = useState<string>("");
-    const [emailspan, setEmailspan] = useState<string>("");
-    const [passwordspan, setPasswordspan] = useState<string>("");
+    const userSpanRef = useRef<React.ReactNode| null>(null);
+    const emailSpanRef = useRef<React.ReactNode| null>(null);
+    const passwordSpanRef = useRef<React.ReactNode| null>(null);
+
+    const signup=(e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
+    };
 
     return (
         <div
@@ -35,24 +39,28 @@ const Signup = () => {
             <form
                 method="post"
                 className={`w-11/12 flex flex-col items-center justify-center rounded-md py-3 mt-28 ${theme?.darkTheme ? "bg-gray-900 shadow-none" : "bg-white shadow-md shadow-gray-300 "}`}
+                onSubmit={signup}
             >
-                <Section
+                <InputSection
+                    reference={userRef}
                     src={user}
                     type="text"
                     placeholder="Username"
-                    span={userspan}
+                    span={userSpanRef}
                 />
-                <Section
+                <InputSection
+                    reference={emailRef}
                     src={mail}
                     type="email"
                     placeholder="Email"
-                    span={emailspan}
+                    span={emailSpanRef}
                 />
-                <Section
+                <InputSection
+                    reference={passwordRef}
                     src={pw}
                     type="password"
                     placeholder="Password"
-                    span={passwordspan}
+                    span={passwordSpanRef}
                 />
                 <button
                     type="submit"
