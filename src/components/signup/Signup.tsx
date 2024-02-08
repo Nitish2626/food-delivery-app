@@ -11,6 +11,7 @@ import InputSection from "../input section/InputSection";
 import customer from "../../images/customer.png";
 import business from "../../images/business.png";
 import RadioButton from "../radio buttons/RadioButton";
+import { signupUser } from "../../helpers/apiCommunicator";
 
 const Signup = () => {
 
@@ -21,8 +22,8 @@ const Signup = () => {
     const userRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    
-    const [type,setType]=useState<string>("");
+
+    const [type, setType] = useState<string>("");
 
     const [usernameSpan, setUsernameSpan] = useState<string>("");
     const [emailSpan, setEmail] = useState<string>("");
@@ -32,8 +33,17 @@ const Signup = () => {
         setType(e.target.value);
     };
 
-    const signup = (e: React.FormEvent<HTMLFormElement>) => {
+    const data = {
+        username: userRef.current?.value as string,
+        email: emailRef.current?.value as string,
+        password: passwordRef.current?.value as string,
+        userType: type as string
+    };
+
+    const signup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const res = await signupUser(data);
+        console.log(res);
     };
 
     return (
@@ -113,3 +123,7 @@ const Signup = () => {
 };
 
 export default Signup;
+
+function axios(arg0: string, arg1: {}) {
+    throw new Error("Function not implemented.");
+}
