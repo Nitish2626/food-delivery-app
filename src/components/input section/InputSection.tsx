@@ -26,6 +26,7 @@ const InputSection = ({ reference, src, type, span, placeholder }: Props) => {
                     type={type}
                     className={`w-11/12 h-10 text-xl rounded-md px-2 outline-black ${theme?.darkTheme ? "bg-gray-800 text-white" : "shadow-md shadow-gray-300"}`}
                     placeholder={placeholder}
+                    required
                 />
             </section>
 

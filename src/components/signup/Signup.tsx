@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
 import user from "../../images/user.png";
 import mail from "../../images/email.png";
@@ -8,20 +8,31 @@ import BackButton from "../back button/BackButton";
 import ThemeButton from "../theme button/ThemeButton";
 import { ThemeContext } from "../../context/ThemeContext";
 import InputSection from "../input section/InputSection";
+import customer from "../../images/customer.png";
+import business from "../../images/business.png";
+import RadioButton from "../radio buttons/RadioButton";
 
 const Signup = () => {
+
+    const navigate = useNavigate();
 
     const theme = useContext(ThemeContext);
 
     const userRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
+    
+    const [type,setType]=useState<string>("");
 
-    const userSpanRef = useRef<React.ReactNode| null>(null);
-    const emailSpanRef = useRef<React.ReactNode| null>(null);
-    const passwordSpanRef = useRef<React.ReactNode| null>(null);
+    const [usernameSpan, setUsernameSpan] = useState<string>("");
+    const [emailSpan, setEmail] = useState<string>("");
+    const [passwordSpan, setPassword] = useState<string>("");
 
-    const signup=(e:React.FormEvent<HTMLFormElement>)=>{
+    const radioInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setType(e.target.value);
+    };
+
+    const signup = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
 
@@ -46,25 +57,39 @@ const Signup = () => {
                     src={user}
                     type="text"
                     placeholder="Username"
-                    span={userSpanRef}
+                    span={usernameSpan}
                 />
                 <InputSection
                     reference={emailRef}
                     src={mail}
                     type="email"
                     placeholder="Email"
-                    span={emailSpanRef}
+                    span={emailSpan}
                 />
                 <InputSection
                     reference={passwordRef}
                     src={pw}
                     type="password"
                     placeholder="Password"
-                    span={passwordSpanRef}
+                    span={passwordSpan}
                 />
+                <section
+                    className="flex items-center justify-start gap-5 mt-2"
+                >
+                    <RadioButton
+                        id="Customer"
+                        src={customer}
+                        change={radioInputChange}
+                    />
+                    <RadioButton
+                        id="Business"
+                        src={business}
+                        change={radioInputChange}
+                    />
+                </section>
                 <button
                     type="submit"
-                    className={`w-28 h-9 flex items-center justify-evenly text-white rounded-lg text-lg my-3  ${theme?.darkTheme ? "bg-gray-800 hover:bg-gray-600" : "bg-blue-600  shadow-md shadow-gray-300 hover:bg-white hover:text-blue-600"}`}
+                    className={`w-28 h-9 flex items-center justify-evenly text-white rounded-lg text-lg mt-6 mb-2 ${theme?.darkTheme ? "bg-gray-800 hover:bg-gray-600" : "bg-blue-600  shadow-md shadow-gray-300 hover:bg-white hover:text-blue-600"}`}
                 >
                     Sign Up
                     <FaUserPlus
@@ -83,7 +108,7 @@ const Signup = () => {
                     Login
                 </Link>
             </form>
-        </div>
+        </div >
     );
 };
 

@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
-import Section from "../input section/InputSection";
 import { MdLogin } from "react-icons/md";
 import BackButton from "../back button/BackButton";
 import ThemeButton from "../theme button/ThemeButton";
@@ -15,6 +14,9 @@ const Login = () => {
 
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
+
+    const [emailSpan,setEmail]=useState<string>("");
+    const [passwordSpan,setPassword]=useState<string>("");
 
     const login=(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
@@ -52,14 +54,14 @@ const Login = () => {
                     src={mail}
                     type="email"
                     placeholder="Email"
-                    span=""
+                    span={emailSpan}
                 />
                 <InputSection
                     reference={passwordRef}
                     src={pw}
                     type="password"
                     placeholder="Password"
-                    span=""
+                    span={passwordSpan}
                 />
                 <button
                     type="submit"
