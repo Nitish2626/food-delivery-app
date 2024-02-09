@@ -8,8 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { userModel } from "../models/userSchema.js";
+import bcrypt from "bcrypt";
 export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, email, password, userType } = req.body;
-    const newUser = yield userModel.create({ username, email, password, userType });
-    console.log(newUser);
+    try {
+        const { username, email, password, userType } = req.body;
+        const userExists = yield userModel.findOne({ email });
+        if (userExists) {
+            res.status(401).send("User Exists");
+        }
+        else {
+            const hashedPassword = yield bcrypt.hash(password, 10);
+            const newUser = yield userModel.create({ username, email, password: hashedPassword, userType });
+            res.status(201).send({ name: newUser.username, email: newUser.email });
+        }
+    }
+    catch (error) {
+        console.log("ERROR", error);
+    }
 });

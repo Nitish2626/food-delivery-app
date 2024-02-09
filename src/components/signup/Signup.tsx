@@ -26,8 +26,8 @@ const Signup = () => {
     const [type, setType] = useState<string>("");
 
     const [usernameSpan, setUsernameSpan] = useState<string>("");
-    const [emailSpan, setEmail] = useState<string>("");
-    const [passwordSpan, setPassword] = useState<string>("");
+    const [emailSpan, setEmailSpan] = useState<string>("");
+    const [passwordSpan, setPasswordSpan] = useState<string>("");
 
     const radioInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setType(e.target.value);
@@ -37,13 +37,32 @@ const Signup = () => {
         username: userRef.current?.value as string,
         email: emailRef.current?.value as string,
         password: passwordRef.current?.value as string,
-        userType: type as string
+        userType: type.toLowerCase() as string
     };
 
     const signup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await signupUser(data);
-        console.log(res);
+        if (passwordRef.current) {
+            if (passwordRef.current.value.length < 8) {
+                setPasswordSpan("Password must be 8 characters long !");
+            }
+            else {
+                setPasswordSpan("");
+                const res = await signupUser(data);
+                if (res === "exists") {
+                    setEmailSpan("User already registered Please Login !");
+                }
+                else {
+                    setEmailSpan("");
+                    if (userRef.current && emailRef.current && passwordRef.current) {
+                        userRef.current.value = "";
+                        emailRef.current.value = "";
+                        passwordRef.current.value = "";
+                        setType("");
+                    }
+                }
+            }
+        }
     };
 
     return (
@@ -123,7 +142,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-function axios(arg0: string, arg1: {}) {
-    throw new Error("Function not implemented.");
-}
