@@ -1,4 +1,5 @@
 import { Router } from "express";
-import { userSignup } from "./routes/userRoutes.js";
+import { userLogin, userSignup } from "./routes/userRoutes.js";
 export const appRouter = Router();
 appRouter.post("/signup", userSignup);
+appRouter.post("/login", userLogin);

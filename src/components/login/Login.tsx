@@ -7,6 +7,7 @@ import BackButton from "../back button/BackButton";
 import ThemeButton from "../theme button/ThemeButton";
 import { ThemeContext } from "../../context/ThemeContext";
 import InputSection from "../input section/InputSection";
+import { loginUser } from "../../helpers/apiCommunicator";
 
 const Login = () => {
 
@@ -15,11 +16,26 @@ const Login = () => {
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
-    const [emailSpan,setEmail]=useState<string>("");
-    const [passwordSpan,setPassword]=useState<string>("");
+    const [emailSpan, setEmailSpan] = useState<string>("");
+    const [passwordSpan, setPasswordSpan] = useState<string>("");
 
-    const login=(e:React.FormEvent<HTMLFormElement>)=>{
+    const login = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const res = await loginUser(emailRef.current?.value as string, passwordRef.current?.value as string);
+        if (res === undefined) {
+            setEmailSpan("Invalid Credentials");
+            setPasswordSpan("Invalid Credentials");
+            await loginUser(emailRef.current?.value as string, passwordRef.current?.value as string);
+        }
+        else {
+            setEmailSpan("");
+            setPasswordSpan("");
+            if (emailRef.current && passwordRef.current) {
+                emailRef.current.value = "";
+                passwordRef.current.value = "";
+            }
+            alert("User Loggedin Successfully");
+        }
     };
 
     return (

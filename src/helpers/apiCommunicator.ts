@@ -22,3 +22,18 @@ export const signupUser = async ({ username, email, password, userType }: Params
         console.log("ERROR",error);
     }
 };
+
+export const loginUser=async(email:string,password:string)=>{
+    try {
+        const res=await axios.post("http://localhost:2000/user/login",{email,password});
+        if(res.status === 401 || res.status === 403){
+            return "Invalid Credentials";
+        }
+        else{
+            const data=await res.data;
+            return data;
+        }
+    } catch (error) {
+        console.log("ERROR",error);
+    }
+};
