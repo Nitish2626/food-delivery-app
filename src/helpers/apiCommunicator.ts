@@ -39,8 +39,9 @@ export const loginUser = async (email: string, password: string) => {
 };
 
 export const authStatus = async () => {
-    const res = await axios.get("/user/status");
-    if (res.status === 401) {
+    const res = await axios.get("http://localhost:2000/user/status");
+    console.log(res);
+    if (res.status === undefined) {
         return "Unable to authenticate";
     }
     else{
