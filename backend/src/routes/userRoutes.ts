@@ -35,7 +35,7 @@ export const userSignup = async (
                 signed:true,
                 expires
             });
-            res.status(201).send({name:newUser.username,email:newUser.email});
+            res.status(201).send({name:newUser.username,email:newUser.email,userType:newUser.userType});
         }
     } catch (error) {
         console.log("ERROR",error);
@@ -73,12 +73,28 @@ export const userLogin=async(
                     path:"/",
                     domain:"localhost",
                     httpOnly:true,
-                    signed:true
+                    signed:true,
+                    expires
                 });
-                res.status(200).send({name:findUser.username,email:findUser.email});
+                res.status(200).send({name:findUser.username,email:findUser.email,userType:findUser.userType});
             }
         }
     } catch (error) {
         console.log("ERROR",error);
     }
-}
+};
+
+export const verifyUser=async(
+    req:Request,
+    res:Response,
+    next:NextFunction
+)=>{
+    const user=await userModel.findById({_id:res.locals.jwtData.id});
+    console.log("user",user);
+    if(!user){
+        res.status(401).send("User not registered");
+    }
+    else{
+        res.status(200).send({name:user?.username,email:user?.email,userType:user?.userType});
+    }
+};

@@ -36,7 +36,7 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
                 signed: true,
                 expires
             });
-            res.status(201).send({ name: newUser.username, email: newUser.email });
+            res.status(201).send({ name: newUser.username, email: newUser.email, userType: newUser.userType });
         }
     }
     catch (error) {
@@ -69,13 +69,24 @@ export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, f
                     path: "/",
                     domain: "localhost",
                     httpOnly: true,
-                    signed: true
+                    signed: true,
+                    expires
                 });
-                res.status(200).send({ name: findUser.username, email: findUser.email });
+                res.status(200).send({ name: findUser.username, email: findUser.email, userType: findUser.userType });
             }
         }
     }
     catch (error) {
         console.log("ERROR", error);
+    }
+});
+export const verifyUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield userModel.findById({ _id: res.locals.jwtData.id });
+    console.log("user", user);
+    if (!user) {
+        res.status(401).send("User not registered");
+    }
+    else {
+        res.status(200).send({ name: user === null || user === void 0 ? void 0 : user.username, email: user === null || user === void 0 ? void 0 : user.email, userType: user === null || user === void 0 ? void 0 : user.userType });
     }
 });

@@ -62,6 +62,7 @@ const Signup = () => {
                         setType("");
                     }
                     alert("User Created Successfuly");
+                    navigate("/login");
                 }
             }
         }
