@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
@@ -11,6 +11,7 @@ import { loginUser } from "../../helpers/apiCommunicator";
 
 const Login = () => {
 
+    const navigate=useNavigate();
     const theme = useContext(ThemeContext);
 
     const emailRef = useRef<HTMLInputElement | null>(null);
@@ -35,6 +36,12 @@ const Login = () => {
                 passwordRef.current.value = "";
             }
             alert("User Loggedin Successfully");
+            if(res.userType==="customer"){
+                navigate("/customer-dashboard");
+            }
+            else{
+                navigate("/business-dashboard");
+            }
         }
     };
 

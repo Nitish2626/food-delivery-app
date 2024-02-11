@@ -38,14 +38,14 @@ export const loginUser = async (email: string, password: string) => {
     }
 };
 
-export const authStatus = async () => {
-    const res = await axios.get("http://localhost:2000/user/status");
-    console.log(res);
-    if (res.status === undefined) {
-        return "Unable to authenticate";
-    }
-    else{
-        const data=await res.data;
-        return data;
-    }
-};
+// export const authStatus = async () => {
+//     const res = await axios.get("http://localhost:2000/user/status");
+//     console.log(res);
+//     if (res.status === undefined) {
+//         return "Unable to authenticate";
+//     }
+//     else{
+//         const data=await res.data;
+//         return data;
+//     }
+// };

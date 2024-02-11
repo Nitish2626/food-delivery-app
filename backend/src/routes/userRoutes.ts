@@ -84,17 +84,17 @@ export const userLogin=async(
     }
 };
 
-export const verifyUser=async(
-    req:Request,
-    res:Response,
-    next:NextFunction
-)=>{
-    const user=await userModel.findById({_id:res.locals.jwtData.id});
-    console.log("user",user);
-    if(!user){
-        res.status(401).send("User not registered");
-    }
-    else{
-        res.status(200).send({name:user?.username,email:user?.email,userType:user?.userType});
-    }
-};
+// export const verifyUser=async(
+//     req:Request,
+//     res:Response,
+//     next:NextFunction
+// )=>{
+//     const user=await userModel.findById({_id:res.locals.jwtData.id});
+//     console.log("user",user);
+//     if(!user){
+//         res.status(401).send("User not registered");
+//     }
+//     else{
+//         res.status(200).send({name:user?.username,email:user?.email,userType:user?.userType});
+//     }
+// };

@@ -80,13 +80,17 @@ export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         console.log("ERROR", error);
     }
 });
-export const verifyUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield userModel.findById({ _id: res.locals.jwtData.id });
-    console.log("user", user);
-    if (!user) {
-        res.status(401).send("User not registered");
-    }
-    else {
-        res.status(200).send({ name: user === null || user === void 0 ? void 0 : user.username, email: user === null || user === void 0 ? void 0 : user.email, userType: user === null || user === void 0 ? void 0 : user.userType });
-    }
-});
+// export const verifyUser=async(
+//     req:Request,
+//     res:Response,
+//     next:NextFunction
+// )=>{
+//     const user=await userModel.findById({_id:res.locals.jwtData.id});
+//     console.log("user",user);
+//     if(!user){
+//         res.status(401).send("User not registered");
+//     }
+//     else{
+//         res.status(200).send({name:user?.username,email:user?.email,userType:user?.userType});
+//     }
+// };

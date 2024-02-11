@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { authStatus } from "../helpers/apiCommunicator";
+// import { authStatus } from "../helpers/apiCommunicator";
 
 type User={
     name:string;
@@ -19,16 +19,16 @@ export const ThemeProvider=({children}:{children:ReactNode})=>{
     const [user,setUser]=useState<User | null>(null);
     const [isLoggedIn,setIsLoggedIn]=useState<boolean>(false);
 
-    useEffect(()=>{
-        const checkStatus=async()=>{
-            const data=await authStatus();
-            if(data){
-                setUser({name:data.username,email:data.email,userType:data.userType});
-                setIsLoggedIn(true);
-            }
-        };
-        checkStatus();
-    },[]);
+    // useEffect(()=>{
+    //     const checkStatus=async()=>{
+    //         const data=await authStatus();
+    //         if(data){
+    //             setUser({name:data.username,email:data.email,userType:data.userType});
+    //             setIsLoggedIn(true);
+    //         }
+    //     };
+    //     checkStatus();
+    // },[]);
 
     const [darkTheme,setdarkTheme]=useState<boolean>(false);
 
