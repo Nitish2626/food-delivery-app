@@ -12,7 +12,7 @@ const App = () => {
   const theme=useContext(ThemeContext);
 
   return (
-    <div className={`${theme?.darkTheme ? "bg-black" : "bg-white"}`}>
+    <div>
       <Router>
         <Routes>
           <Route path="/" element={<Home />}></Route>

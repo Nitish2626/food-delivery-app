@@ -10,7 +10,7 @@ const SearchBar = () => {
         <input
             type="search"
             ref={searchRef}
-            className={`w-8/12 h-8 rounded-md text-lg px-2  ${theme?.darkTheme ? "dark:bg-black shadow-none outline-none" : "bg-white shadow-md shadow-gray-300 outline-none"} `}
+            className={`w-8/12 h-8 rounded-md text-lg px-2  ${theme?.darkTheme ? "bg-gray-800 text-white shadow-none outline-none" : "bg-white shadow-md shadow-gray-300 outline-none"} `}
             placeholder="Search"
             title="Search food item">
         </input>
