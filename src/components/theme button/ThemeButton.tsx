@@ -9,7 +9,7 @@ const ThemeButton = () => {
 
     return (
         <button
-            className={`w-7 h-7 flex items-center justify-center rounded-full shadow-md  ${theme?.darkTheme ? "bg-black shadow-none hover:bg-gray-700" : "bg-white shadow-gray-200 hover:bg-gray-300"}`}
+            className={`w-7 h-7 flex items-center justify-center rounded-full shadow-md  ${theme?.darkTheme ? "bg-black shadow-none hover:bg-gray-700" : "bg-white shadow-gray-300 hover:bg-gray-300 hover:shadow-none"}`}
             onClick={theme?.changeTheme}
         >
             <img
