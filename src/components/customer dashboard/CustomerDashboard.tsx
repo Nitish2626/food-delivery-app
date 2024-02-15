@@ -41,7 +41,7 @@ const CustomerDashboard = () => {
                 <ThemeButton />
             </section>
 
-            <section className={`flex items-center gap-5 overflow-auto no-scrollbar py-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}>
+            <section className={`flex items-center gap-2 overflow-auto no-scrollbar py-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}>
                 {foodItems.map((f, i) => (
                     <FoodCategory
                         key={i}
@@ -51,7 +51,7 @@ const CustomerDashboard = () => {
                 ))}
             </section>
 
-            <section className={`flex items-center overflow-auto no-scrollbar px-2 py-2 ${theme?.darkTheme ? "bg-black" : "bg-blue-500"}`}>
+            <section className={`flex items-center gap-4 overflow-auto no-scrollbar px-2 py-2 ${theme?.darkTheme ? "bg-black" : "bg-blue-500"}`}>
                 <FoodItem 
                     src={burger}
                     name="Cheese Burger"

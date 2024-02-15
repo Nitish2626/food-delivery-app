@@ -25,7 +25,7 @@ const FoodItem = ({ src, name, price }: Props) => {
 
     return (
         <div
-            className={`w-44 flex flex-col px-2 py-3 rounded-lg ${theme?.darkTheme ? "bg-gray-800 shadow-none" : "bg-white shadow-md shadow-gray-300"}`}
+            className={`flex flex-col items-center px-2 py-3 rounded-lg ${theme?.darkTheme ? "bg-gray-800 shadow-none" : "bg-white shadow-md shadow-gray-300"}`}
         >
             <img
                 src={src}
@@ -67,7 +67,7 @@ const FoodItem = ({ src, name, price }: Props) => {
             </section>
 
             <section
-                className="flex items-center justify-between mt-1"
+                className="flex items-center justify-between gap-4 mt-1"
             >
                 <button
                     className={`w-16 rounded-md text-xl py-3 text-blue-400 px-3 ${theme?.darkTheme ? "bg-gray-700 shadow-none hover:bg-gray-600" : "shadow-md shadow-gray-300 hover:bg-gray-200"}`}
