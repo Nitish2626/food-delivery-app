@@ -51,8 +51,27 @@ const CustomerDashboard = () => {
                 ))}
             </section>
 
-            <section className={`mt-2`}>
-                <FoodItem />
+            <section className={`flex items-center overflow-auto no-scrollbar px-2 py-2 ${theme?.darkTheme ? "bg-black" : "bg-blue-500"}`}>
+                <FoodItem 
+                    src={burger}
+                    name="Cheese Burger"
+                    price={100}
+                />
+                <FoodItem 
+                    src={pizza}
+                    name="Cheese Pizza"
+                    price={200}
+                />
+                <FoodItem 
+                    src={paneer}
+                    name="Matar Paneer"
+                    price={200}
+                />
+                <FoodItem 
+                    src={chicken}
+                    name="Chicken Curry"
+                    price={300}
+                />
             </section>
         </div>
     );
