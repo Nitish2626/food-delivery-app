@@ -14,8 +14,9 @@ import dosa from "../../images/dosa.png";
 import paneer from "../../images/paneer.png";
 import iceCream from "../../images/ice-cream.png";
 import FoodItem from '../food item/FoodItem';
+import BottomBar from '../bottom bar/BottomBar';
 
-const CustomerDashboard = () => {
+const HomeCustomerDashboard = () => {
 
     const theme = useContext(ThemeContext);
 
@@ -51,30 +52,31 @@ const CustomerDashboard = () => {
                 ))}
             </section>
 
-            <section className={`flex items-center gap-4 overflow-auto no-scrollbar px-2 py-2 ${theme?.darkTheme ? "bg-black" : "bg-blue-500"}`}>
-                <FoodItem 
+            <section className={`w-full flex items-center gap-4 overflow-auto no-scrollbar px-2 py-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}>
+                <FoodItem
                     src={burger}
                     name="Cheese Burger"
                     price={100}
                 />
-                <FoodItem 
+                <FoodItem
                     src={pizza}
                     name="Cheese Pizza"
                     price={200}
                 />
-                <FoodItem 
+                <FoodItem
                     src={paneer}
                     name="Matar Paneer"
                     price={200}
                 />
-                <FoodItem 
+                <FoodItem
                     src={chicken}
                     name="Chicken Curry"
                     price={300}
                 />
             </section>
+            <BottomBar />
         </div>
     );
 };
 
-export default CustomerDashboard;
+export default HomeCustomerDashboard;

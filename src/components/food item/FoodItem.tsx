@@ -25,27 +25,29 @@ const FoodItem = ({ src, name, price }: Props) => {
 
     return (
         <div
-            className={`flex flex-col items-center px-2 py-3 rounded-lg ${theme?.darkTheme ? "bg-gray-800 shadow-none" : "bg-white shadow-md shadow-gray-300"}`}
+            className={`w-44 flex flex-col items-center py-3 rounded-lg ${theme?.darkTheme ? "bg-gray-800 shadow-none" : "bg-white shadow-md shadow-gray-300"}`}
         >
-            <img
-                src={src}
-                className="w-full h-28"
-                alt="Food"
-            />
-            <h1
-                className={`text-xl font-semibold text-center ${theme?.darkTheme ? "text-white" : "text-black"}`}
-            >
-                {name}
-            </h1>
+            <section className="w-full flex flex-col items-center justify-center">
+                <img
+                    src={src}
+                    className="w-full h-28"
+                    alt="Food"
+                />
+                <h1
+                    className={`w-full text-xl font-semibold text-center overflow-hidden text-ellipsis px-5 ${theme?.darkTheme ? "text-white" : "text-black"}`}
+                >
+                    {name}
+                </h1>
+            </section>
 
-            <section className="flex items-center justify-between">
+            <section className="w-full flex items-center justify-evenly">
                 <h2
                     className={`text-lg font-semibold ${theme?.darkTheme ? "text-white" : "text-black"}`}
                 >
                     ₹ {price * quantity}
                 </h2>
                 <section
-                    className="flex items-center px-2 py-2"
+                    className="flex items-center py-2"
                 >
                     <IncreDecreButton
                         disabled={quantity === 1 ? true : false}
@@ -67,7 +69,7 @@ const FoodItem = ({ src, name, price }: Props) => {
             </section>
 
             <section
-                className="flex items-center justify-between gap-4 mt-1"
+                className="w-full flex items-center gap-4 mt-1 px-5"
             >
                 <button
                     className={`w-16 rounded-md text-xl py-3 text-blue-400 px-3 ${theme?.darkTheme ? "bg-gray-700 shadow-none hover:bg-gray-600" : "shadow-md shadow-gray-300 hover:bg-gray-200"}`}

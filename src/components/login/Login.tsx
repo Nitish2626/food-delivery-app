@@ -37,7 +37,7 @@ const Login = () => {
             }
             alert("User Loggedin Successfully");
             if(res.userType==="customer"){
-                navigate("/customer-dashboard");
+                navigate("/customer-dashboard/home");
             }
             else{
                 navigate("/business-dashboard");
