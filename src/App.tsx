@@ -3,7 +3,6 @@ import Home from "./components/home/Home";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
 import BusinessDashboard from "./components/business dashboard/BusinessDashboard";
-import CustomerDashboardOrders from "./components/orders customer dashboard/OrdersCustomerDashboard";
 import CartCustomerDashboard from "./components/cart customer dashboard/CartCustomerDashboard";
 import HomeCustomerDashboard from "./components/home customer dashboard/HomeCustomerDashboard";
 import OrdersCustomerDashboard from "./components/orders customer dashboard/OrdersCustomerDashboard";

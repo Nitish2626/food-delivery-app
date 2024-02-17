@@ -5,10 +5,11 @@ type Props = {
     children:JSX.Element;
 };
 const NavigationLinks = ({ to,children }: Props) => {
+
     return (
         <NavLink
             to={to}
-            className={`text-2xl`}
+            className={`flex items-center justify-center text-2xl rounded-full px-1 py-1`}
         >
             {children}
         </NavLink>

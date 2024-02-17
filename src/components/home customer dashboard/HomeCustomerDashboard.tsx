@@ -73,6 +73,31 @@ const HomeCustomerDashboard = () => {
                     name="Chicken Curry"
                     price={300}
                 />
+                <FoodItem
+                    src={idli}
+                    name="Idli"
+                    price={20}
+                />
+                <FoodItem
+                    src={dosa}
+                    name="Dosa"
+                    price={20}
+                />
+                <FoodItem
+                    src={biryani}
+                    name="Biryani"
+                    price={60}
+                />
+                <FoodItem
+                    src={curry}
+                    name="Egg Curry"
+                    price={50}
+                />
+                <FoodItem
+                    src={iceCream}
+                    name="Ice-Cream"
+                    price={40}
+                />
             </section>
             <BottomBar />
         </div>
