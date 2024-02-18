@@ -38,6 +38,15 @@ export const loginUser = async (email: string, password: string) => {
     }
 };
 
+export const orders=async(name:string,price:number,quantity:number)=>{
+    try {
+        const res=await axios.post("http://localhost:2000/user/orders",{name,price,quantity});
+        console.log(await res.data);
+    } catch (error) {
+        console.log("Order Error",error);
+    }
+};
+
 // export const authStatus = async () => {
 //     const res = await axios.get("http://localhost:2000/user/status");
 //     console.log(res);

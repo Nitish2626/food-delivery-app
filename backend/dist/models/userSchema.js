@@ -1,4 +1,18 @@
 import { Schema, model } from "mongoose";
+const userOrdersSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    }
+});
 const userSchema = new Schema({
     username: {
         type: String,
@@ -16,6 +30,13 @@ const userSchema = new Schema({
     userType: {
         type: String,
         required: true
-    }
+    },
+    orders: [
+        {
+            type: userOrdersSchema
+        }
+    ]
+}, {
+    timestamps: true
 });
 export const userModel = model("user", userSchema);

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import cart from "../../images/cart.png";
 import { ThemeContext } from "../../context/ThemeContext";
 import IncreDecreButton from "../increment decrement button/IncreDecreButton";
+import { orders } from "../../helpers/apiCommunicator";
 
 type Props = {
     src: string;
@@ -21,6 +22,10 @@ const FoodItem = ({ src, name, price }: Props) => {
 
     const decrement = () => {
         setQuantity((prev) => prev - 1);
+    };
+
+    const buy=async()=>{
+        const res= await orders(name,(price*quantity),quantity);
     };
 
     return (
@@ -73,6 +78,7 @@ const FoodItem = ({ src, name, price }: Props) => {
             >
                 <button
                     className={`w-16 rounded-md text-xl py-3 text-blue-400 px-3 ${theme?.darkTheme ? "bg-gray-700 shadow-none hover:bg-gray-600" : "shadow-md shadow-gray-300 hover:bg-gray-200"}`}
+                    onClick={buy}
                 >
                     Buy
                 </button>

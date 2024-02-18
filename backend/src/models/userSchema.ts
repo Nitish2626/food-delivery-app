@@ -1,23 +1,48 @@
-import {Schema,model} from "mongoose";
+import { Schema, model } from "mongoose";
 
-const userSchema=new Schema({
-    username:{
-        type:String,
-        required:true
+const userOrdersSchema = new Schema({
+    name: {
+        type: String,
+        required: true
     },
-    email:{
-        type:String,
-        unique:true,
-        required:true
+    price: {
+        type: Number,
+        required: true
     },
-    password:{
-        type:String,
-        required:true
-    },
-    userType:{
-        type:String,
-        required:true
+    quantity: {
+        type: Number,
+        required: true
     }
 });
 
-export const userModel= model("user",userSchema);
+const userSchema = new Schema(
+    {
+        username: {
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            unique: true,
+            required: true
+        },
+        password: {
+            type: String,
+            required: true
+        },
+        userType: {
+            type: String,
+            required: true
+        },
+        orders: [
+            {
+                type:userOrdersSchema
+            }
+        ]
+    },
+    {
+        timestamps:true
+    }
+);
+
+export const userModel = model("user", userSchema);

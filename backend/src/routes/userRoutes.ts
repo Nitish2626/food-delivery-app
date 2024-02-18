@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { userModel } from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import { createToken } from "../utils/tokenManager.js";
+import { ordersModel } from "../models/userOrdersSchema.js";
 
 export const userSignup = async (
     req: Request,
@@ -82,6 +83,17 @@ export const userLogin=async(
     } catch (error) {
         console.log("ERROR",error);
     }
+};
+
+export const userOrders=async(
+    req:Request,
+    res:Response,
+    next:NextFunction
+)=>{
+    const {name,price,quantity} = req.body;
+    const data = await userModel.findByIdAndUpdate("65c74e87126c2fc6ecb7876d",{orders:[{name,price,quantity}]});
+    console.log("order data",data);
+    res.status(200).send(data);
 };
 
 // export const verifyUser=async(
