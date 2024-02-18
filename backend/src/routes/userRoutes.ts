@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { userModel } from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import { createToken } from "../utils/tokenManager.js";
-import { ordersModel } from "../models/userOrdersSchema.js";
 
 export const userSignup = async (
     req: Request,
@@ -18,7 +17,8 @@ export const userSignup = async (
         else{
             const hashedPassword=await bcrypt.hash(password,10);
             const newUser = await userModel.create({ username, email, password:hashedPassword, userType });
-
+            await newUser.save();
+            
             res.clearCookie("Token",{
                 path:"/",
                 domain:"localhost",
@@ -26,7 +26,7 @@ export const userSignup = async (
                 signed:true
             });
 
-            const token=createToken(newUser._id.toString(),newUser.email,"10d");
+            const token=createToken(newUser._id.toString(),`${newUser.email}`,"10d");
             const expires=new Date();
             expires.setDate(expires.getDate() + 10);
             res.cookie("Token",token,{
@@ -56,7 +56,7 @@ export const userLogin=async(
             res.status(401).send("User Not Exists");
         }
         else{
-            const isPasswordCorrect=await bcrypt.compare(password,findUser.password);
+            const isPasswordCorrect=await bcrypt.compare(password,`${findUser.password}`);
             if(!isPasswordCorrect){
                 res.status(403).send("Incorrect Password");
             }
@@ -67,7 +67,7 @@ export const userLogin=async(
                     httpOnly:true,
                     signed:true
                 });
-                const token=createToken(findUser._id.toString(),findUser.email,"10d");
+                const token=createToken(findUser._id.toString(),`${findUser.email}`,"10d");
                 const expires=new Date();
                 expires.setDate(expires.getDate() + 10);
                 res.cookie("Token",token,{
@@ -91,22 +91,32 @@ export const userOrders=async(
     next:NextFunction
 )=>{
     const {name,price,quantity} = req.body;
-    const data = await userModel.findByIdAndUpdate("65c74e87126c2fc6ecb7876d",{orders:[{name,price,quantity}]});
-    console.log("order data",data);
+    const data = await userModel.findByIdAndUpdate("65c74e87126c2fc6ecb7876d",{$push:{orders:{name,price,quantity}}});
     res.status(200).send(data);
 };
 
-// export const verifyUser=async(
-//     req:Request,
-//     res:Response,
-//     next:NextFunction
-// )=>{
-//     const user=await userModel.findById({_id:res.locals.jwtData.id});
-//     console.log("user",user);
-//     if(!user){
-//         res.status(401).send("User not registered");
-//     }
-//     else{
-//         res.status(200).send({name:user?.username,email:user?.email,userType:user?.userType});
-//     }
-// };
+export const userCart=async(
+    req:Request,
+    res:Response,
+    next:NextFunction
+)=>{
+    const {name,price,quantity}=req.body;
+    const data=await userModel.findByIdAndUpdate("65c74e87126c2fc6ecb7876d",{$push:{cart:{name,price,quantity}}});
+    console.log("cart",data);
+    res.status(200).send(data);
+}
+
+export const verifyUser=async(
+    req:Request,
+    res:Response,
+    next:NextFunction
+)=>{
+    const user=await userModel.findById({_id:res.locals.jwtData.id});
+    console.log("user",user);
+    if(!user){
+        res.status(401).send("User not registered");
+    }
+    else{
+        res.status(200).send({name:user?.username,email:user?.email,userType:user?.userType});
+    }
+};

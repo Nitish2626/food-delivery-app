@@ -17,6 +17,7 @@ export const createToken = (id, email, expiresIn) => {
 };
 export const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const token = yield req.signedCookies["Token"];
+    console.log("token", token);
     if (!token || token.trim() === "") {
         res.status(401).send("Token not Received");
         next();

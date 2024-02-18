@@ -1,4 +1,18 @@
 import { Schema, model } from "mongoose";
+const userCartSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    }
+});
 const userOrdersSchema = new Schema({
     name: {
         type: String,
@@ -34,6 +48,11 @@ const userSchema = new Schema({
     orders: [
         {
             type: userOrdersSchema
+        }
+    ],
+    cart: [
+        {
+            type: userCartSchema
         }
     ]
 }, {

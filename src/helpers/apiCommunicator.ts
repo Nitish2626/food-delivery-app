@@ -41,20 +41,27 @@ export const loginUser = async (email: string, password: string) => {
 export const orders=async(name:string,price:number,quantity:number)=>{
     try {
         const res=await axios.post("http://localhost:2000/user/orders",{name,price,quantity});
-        console.log(await res.data);
+        const data=await res.data;
+        return data;
     } catch (error) {
         console.log("Order Error",error);
     }
 };
 
-// export const authStatus = async () => {
-//     const res = await axios.get("http://localhost:2000/user/status");
-//     console.log(res);
-//     if (res.status === undefined) {
-//         return "Unable to authenticate";
-//     }
-//     else{
-//         const data=await res.data;
-//         return data;
-//     }
-// };
+export const cart=async(name:string,price:number,quantity:number)=>{
+    const res= await axios.post("http://localhost:2000/user/cart",{name,price,quantity});
+    const data=await res.data;
+    console.log(data);
+};
+
+export const authStatus = async () => {
+    const res = await axios.get("http://localhost:2000/user/status");
+    console.log(res);
+    if (res.status === undefined) {
+        return "Unable to authenticate";
+    }
+    else{
+        const data=await res.data;
+        return data;
+    }
+};

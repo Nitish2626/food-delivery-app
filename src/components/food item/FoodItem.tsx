@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import cart from "../../images/cart.png";
+import kart from "../../images/cart.png";
 import { ThemeContext } from "../../context/ThemeContext";
 import IncreDecreButton from "../increment decrement button/IncreDecreButton";
-import { orders } from "../../helpers/apiCommunicator";
+import { orders,cart } from "../../helpers/apiCommunicator";
 
 type Props = {
     src: string;
@@ -25,7 +25,11 @@ const FoodItem = ({ src, name, price }: Props) => {
     };
 
     const buy=async()=>{
-        const res= await orders(name,(price*quantity),quantity);
+        await orders(name,(price*quantity),quantity);
+    };
+
+    const addToCart=async()=>{
+        await cart(name,(price*quantity),quantity);
     };
 
     return (
@@ -84,9 +88,10 @@ const FoodItem = ({ src, name, price }: Props) => {
                 </button>
                 <button
                     className={`w-16 flex items-center justify-center rounded-md py-1 px-2 ${theme?.darkTheme ? "bg-gray-700 hover:bg-gray-600" : "shadow-md shadow-gray-300 hover:bg-gray-200"}`}
+                    onClick={addToCart}
                 >
                     <img
-                        src={cart}
+                        src={kart}
                         className="w-10 h-10"
                         alt="Cart"
                     />
