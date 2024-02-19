@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 const app=express();
 const port=process.env.PORT || 2000;
 
-app.use(cors());
+app.use(cors({origin:"http://localhost:3000",credentials:true}));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 

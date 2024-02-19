@@ -19,7 +19,7 @@ export const signupUser = async ({ username, email, password, userType }: Params
         }
     }
     catch (error) {
-        console.log("ERROR", error);
+        console.log("Signup API ERROR", error);
     }
 };
 
@@ -31,10 +31,10 @@ export const loginUser = async (email: string, password: string) => {
         }
         else {
             const data = await res.data;
-            return data;
+            return await data;
         }
     } catch (error) {
-        console.log("ERROR", error);
+        console.log("Login API ERROR", error);
     }
 };
 
@@ -55,13 +55,18 @@ export const cart=async(name:string,price:number,quantity:number)=>{
 };
 
 export const authStatus = async () => {
-    const res = await axios.get("http://localhost:2000/user/status");
-    console.log(res);
-    if (res.status === undefined) {
-        return "Unable to authenticate";
-    }
-    else{
-        const data=await res.data;
-        return data;
+    try {
+        const res = await axios.get("http://localhost:2000/user/status");
+        console.log(await res.data);
+        if (res.status === 401) {
+            console.log("Unable to authenticate");
+        }
+        else{
+            const data=await res.data;
+            return data;
+        }
+    } 
+    catch (error) {
+        console.log("Auth Status API ERROR");
     }
 };

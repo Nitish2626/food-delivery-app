@@ -26,9 +26,10 @@ export const userSignup = async (
                 signed:true
             });
 
-            const token=createToken(newUser._id.toString(),`${newUser.email}`,"10d");
+            const token= createToken(newUser._id.toString(),`${newUser.email}`,"10d");
             const expires=new Date();
             expires.setDate(expires.getDate() + 10);
+
             res.cookie("Token",token,{
                 path:"/",
                 domain:"localhost",
@@ -39,7 +40,7 @@ export const userSignup = async (
             res.status(201).send({name:newUser.username,email:newUser.email,userType:newUser.userType});
         }
     } catch (error) {
-        console.log("ERROR",error);
+        console.log("User Signup ERROR",error);
     }
 
 };
@@ -67,9 +68,11 @@ export const userLogin=async(
                     httpOnly:true,
                     signed:true
                 });
+
                 const token=createToken(findUser._id.toString(),`${findUser.email}`,"10d");
                 const expires=new Date();
                 expires.setDate(expires.getDate() + 10);
+
                 res.cookie("Token",token,{
                     path:"/",
                     domain:"localhost",
@@ -81,7 +84,7 @@ export const userLogin=async(
             }
         }
     } catch (error) {
-        console.log("ERROR",error);
+        console.log("User Login ERROR",error);
     }
 };
 

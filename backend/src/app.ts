@@ -8,4 +8,4 @@ appRouter.post("/signup",userSignup);
 appRouter.post("/login",userLogin);
 appRouter.post("/orders",userOrders);
 appRouter.post("/cart",userCart)
-appRouter.get("/status",verifyToken,verifyUser);
+appRouter.get("/status",verifyToken);

@@ -14,10 +14,12 @@ export const verifyToken = async (
     res: Response,
     next: NextFunction
 ) => {
+    console.log("cookie",await req.cookies);
     const token = await req.signedCookies["Token"];
     console.log("token",token);
     if (!token || token.trim() === "") {
-        res.status(401).send("Token not Received");
+        // res.status(401).send("Token not Received");
+        console.log("Token not received");
         next();
     }
     else {

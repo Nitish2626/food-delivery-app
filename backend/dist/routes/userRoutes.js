@@ -41,7 +41,7 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         }
     }
     catch (error) {
-        console.log("ERROR", error);
+        console.log("User Signup ERROR", error);
     }
 });
 export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -78,7 +78,7 @@ export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         }
     }
     catch (error) {
-        console.log("ERROR", error);
+        console.log("User Login ERROR", error);
     }
 });
 export const userOrders = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
