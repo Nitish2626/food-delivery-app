@@ -22,19 +22,19 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             const newUser = yield userModel.create({ username, email, password: hashedPassword, userType });
             yield newUser.save();
             res.clearCookie("Token", {
-                path: "/",
-                domain: "localhost",
+                // path: "/",
+                // domain: "localhost",
                 httpOnly: true,
-                signed: true
+                // signed: false
             });
             const token = createToken(newUser._id.toString(), `${newUser.email}`, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
             res.cookie("Token", token, {
-                path: "/",
-                domain: "localhost",
+                // path: "/",
+                // domain: "localhost",
                 httpOnly: true,
-                signed: true,
+                // signed: false,
                 expires
             });
             res.status(201).send({ name: newUser.username, email: newUser.email, userType: newUser.userType });
@@ -47,7 +47,6 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
 export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     const findUser = yield userModel.findOne({ email });
-    // console.log("user",findUser);
     if (!findUser) {
         res.status(401).send("User Not Exists");
     }

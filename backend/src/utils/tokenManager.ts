@@ -18,7 +18,7 @@ export const verifyToken = async (
     const token = await req.signedCookies["Token"];
     console.log("token",token);
     if (!token || token.trim() === "") {
-        // res.status(401).send("Token not Received");
+        res.status(401).send("Token not Received");
         console.log("Token not received");
         next();
     }

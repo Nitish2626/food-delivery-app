@@ -10,29 +10,25 @@ type Params = {
 export const signupUser = async ({ username, email, password, userType }: Params) => {
     try {
         const res = await axios.post("http://localhost:2000/user/signup", { username, email, password, userType });
-        if (res.status === 401) {
-            return "exists";
-        }
-        else {
-            const data = await res.data;
-            return data;
-        }
+        const data = await res.data;
+        return data;
     }
     catch (error) {
         console.log("Signup API ERROR", error);
+        return "exists";
     }
 };
 
 export const loginUser = async (email: string, password: string) => {
-    const res = await axios.post("http://localhost:2000/user/login", { email, password });
-    console.log("res", res.status);
-    if (res.status === 401 || res.status === 403) {
-        return "Invalid Credentials";
-    }
-    else {
+    try {
+        const res = await axios.post("http://localhost:2000/user/login", { email, password });
         const data = await res.data;
         console.log(data);
         return data;
+    }
+    catch (error) {
+        console.log("Login API ERROR", error);
+        return "Invalid Credentials"
     }
 };
 
@@ -55,16 +51,11 @@ export const cart = async (name: string, price: number, quantity: number) => {
 export const authStatus = async () => {
     try {
         const res = await axios.get("http://localhost:2000/user/status");
-        console.log(await res.data);
-        if (res.status === 401) {
-            console.log("Unable to authenticate");
-        }
-        else {
-            const data = await res.data;
-            return data;
-        }
+        const data = await res.data;
+        return data;
     }
     catch (error) {
-        console.log("Auth Status API ERROR");
+        console.log("Auth Status API ERROR", error);
+        return "Unable to authenticate";
     }
 };

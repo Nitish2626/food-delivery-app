@@ -11,6 +11,7 @@ export const userSignup = async (
     try {
         const { username, email, password, userType } = req.body;
         const userExists = await userModel.findOne({ email });
+
         if (userExists) {
             res.status(401).send("User Exists");
         }
@@ -20,10 +21,10 @@ export const userSignup = async (
             await newUser.save();
 
             res.clearCookie("Token", {
-                path: "/",
-                domain: "localhost",
+                // path: "/",
+                // domain: "localhost",
                 httpOnly: true,
-                signed: true
+                // signed: false
             });
 
             const token = createToken(newUser._id.toString(), `${newUser.email}`, "10d");
@@ -31,10 +32,10 @@ export const userSignup = async (
             expires.setDate(expires.getDate() + 10);
 
             res.cookie("Token", token, {
-                path: "/",
-                domain: "localhost",
+                // path: "/",
+                // domain: "localhost",
                 httpOnly: true,
-                signed: true,
+                // signed: false,
                 expires
             });
             res.status(201).send({ name: newUser.username, email: newUser.email, userType: newUser.userType });
@@ -52,12 +53,13 @@ export const userLogin = async (
 ) => {
     const { email, password } = req.body;
     const findUser = await userModel.findOne({ email });
-    // console.log("user",findUser);
+
     if (!findUser) {
         res.status(401).send("User Not Exists");
     }
     else {
         const isPasswordCorrect = await bcrypt.compare(password, `${findUser.password}`);
+
         if (!isPasswordCorrect) {
             res.status(403).send("Incorrect Password");
         }

@@ -23,11 +23,11 @@ const Login = () => {
     const login = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const res = await loginUser(emailRef.current?.value as string, passwordRef.current?.value as string);
-        console.log(await res);
-        if (res===undefined) {
+
+        if (res==="Invalid Credentials") {
             setEmailSpan("Invalid Credentials");
             setPasswordSpan("Invalid Credentials");
-            theme?.login(emailRef.current?.value as string, passwordRef.current?.value as string);
+            // theme?.login(emailRef.current?.value as string, passwordRef.current?.value as string);
         }
         else {
             setEmailSpan("");

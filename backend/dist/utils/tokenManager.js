@@ -20,7 +20,7 @@ export const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0,
     const token = yield req.signedCookies["Token"];
     console.log("token", token);
     if (!token || token.trim() === "") {
-        // res.status(401).send("Token not Received");
+        res.status(401).send("Token not Received");
         console.log("Token not received");
         next();
     }

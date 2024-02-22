@@ -49,7 +49,8 @@ const Signup = () => {
             else {
                 setPasswordSpan("");
                 const res = await signupUser(data);
-                if (res === undefined) {
+
+                if (res === "exists") {
                     setEmailSpan("User already registered Please Login !");
                     await signupUser(data);
                 }
