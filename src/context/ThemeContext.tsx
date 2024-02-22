@@ -34,11 +34,13 @@ export const ThemeProvider=({children}:{children:ReactNode})=>{
     console.log("after",user,isLoggedIn);
 
     const login=async(email:string,password:string)=>{
-        const data=await loginUser(email,password);
-        if(data){
-            setUser({name:data.name,email:data.email,userType:data.userType});
-            setIsLoggedIn(true);
-        }
+        // const data=await loginUser(email,password);
+        // if(data){
+        //     setUser({name:data.name,email:data.email,userType:data.userType});
+        //     setIsLoggedIn(true);
+        //     console.log("data",data);
+        // }
+        // return data;
     }
 
     const [darkTheme,setdarkTheme]=useState<boolean>(false);

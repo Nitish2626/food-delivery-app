@@ -7,6 +7,7 @@ import BackButton from "../back button/BackButton";
 import ThemeButton from "../theme button/ThemeButton";
 import { ThemeContext } from "../../context/ThemeContext";
 import InputSection from "../input section/InputSection";
+import { loginUser } from "../../helpers/apiCommunicator";
 
 const Login = () => {
 
@@ -21,8 +22,9 @@ const Login = () => {
 
     const login = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = theme?.login(emailRef.current?.value as string, passwordRef.current?.value as string);
-        if (res === undefined) {
+        const res = await loginUser(emailRef.current?.value as string, passwordRef.current?.value as string);
+        console.log(await res);
+        if (res===undefined) {
             setEmailSpan("Invalid Credentials");
             setPasswordSpan("Invalid Credentials");
             theme?.login(emailRef.current?.value as string, passwordRef.current?.value as string);
@@ -35,7 +37,7 @@ const Login = () => {
                 passwordRef.current.value = "";
             }
             alert("User Loggedin Successfully");
-            if(res){
+            if(res.userType ==="customer"){
                 navigate("/customer-dashboard/home");
             }
             else{

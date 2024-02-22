@@ -45,40 +45,36 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     }
 });
 export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { email, password } = req.body;
-        const findUser = yield userModel.findOne({ email });
-        if (!findUser) {
-            res.status(401).send("User Not Exists");
+    const { email, password } = req.body;
+    const findUser = yield userModel.findOne({ email });
+    // console.log("user",findUser);
+    if (!findUser) {
+        res.status(401).send("User Not Exists");
+    }
+    else {
+        const isPasswordCorrect = yield bcrypt.compare(password, `${findUser.password}`);
+        if (!isPasswordCorrect) {
+            res.status(403).send("Incorrect Password");
         }
         else {
-            const isPasswordCorrect = yield bcrypt.compare(password, `${findUser.password}`);
-            if (!isPasswordCorrect) {
-                res.status(403).send("Incorrect Password");
-            }
-            else {
-                res.clearCookie("Token", {
-                    path: "/",
-                    domain: "localhost",
-                    httpOnly: true,
-                    signed: true
-                });
-                const token = createToken(findUser._id.toString(), `${findUser.email}`, "10d");
-                const expires = new Date();
-                expires.setDate(expires.getDate() + 10);
-                res.cookie("Token", token, {
-                    path: "/",
-                    domain: "localhost",
-                    httpOnly: true,
-                    signed: true,
-                    expires
-                });
-                res.status(200).send({ name: findUser.username, email: findUser.email, userType: findUser.userType });
-            }
+            res.clearCookie("Token", {
+                path: "/",
+                domain: "localhost",
+                httpOnly: true,
+                signed: true
+            });
+            const token = createToken(findUser._id.toString(), `${findUser.email}`, "10d");
+            const expires = new Date();
+            expires.setDate(expires.getDate() + 10);
+            res.cookie("Token", token, {
+                path: "/",
+                domain: "localhost",
+                httpOnly: true,
+                signed: true,
+                expires
+            });
+            res.status(200).send({ name: findUser.username, email: findUser.email, userType: findUser.userType });
         }
-    }
-    catch (error) {
-        console.log("User Login ERROR", error);
     }
 });
 export const userOrders = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
