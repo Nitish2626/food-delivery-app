@@ -21,10 +21,10 @@ export const userSignup = async (
             await newUser.save();
 
             res.clearCookie("Token", {
-                // path: "/",
-                // domain: "localhost",
+                path: "/",
+                domain: "localhost",
                 httpOnly: true,
-                // signed: false
+                signed: true
             });
 
             const token = createToken(newUser._id.toString(), `${newUser.email}`, "10d");
@@ -32,13 +32,14 @@ export const userSignup = async (
             expires.setDate(expires.getDate() + 10);
 
             res.cookie("Token", token, {
-                // path: "/",
-                // domain: "localhost",
+                path: "/",
+                domain: "localhost",
                 httpOnly: true,
-                // signed: false,
+                signed: true,
                 expires
             });
             res.status(201).send({ name: newUser.username, email: newUser.email, userType: newUser.userType });
+            console.log(req.cookies);
         }
     } catch (error) {
         console.log("User Signup ERROR", error);
@@ -75,15 +76,31 @@ export const userLogin = async (
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
 
-            res.cookie("Token", token, {
+            res.cookie("Token",token, {
                 path: "/",
                 domain: "localhost",
                 httpOnly: true,
                 signed: true,
                 expires
             });
+
             res.status(200).send({ name: findUser.username, email: findUser.email, userType: findUser.userType });
         }
+    }
+};
+
+export const verifyUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const user = await userModel.findById({ _id: res.locals.jwtData.id });
+
+    if (!user) {
+        res.status(401).send("User not registered");
+    }
+    else {
+        res.status(200).send({ name: user?.username, email: user?.email, userType: user?.userType });
     }
 };
 
@@ -108,17 +125,3 @@ export const userCart = async (
     res.status(200).send(data);
 }
 
-export const verifyUser = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    const user = await userModel.findById({ _id: res.locals.jwtData.id });
-    console.log("user", user);
-    if (!user) {
-        res.status(401).send("User not registered");
-    }
-    else {
-        res.status(200).send({ name: user?.username, email: user?.email, userType: user?.userType });
-    }
-};

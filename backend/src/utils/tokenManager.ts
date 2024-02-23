@@ -14,9 +14,8 @@ export const verifyToken = async (
     res: Response,
     next: NextFunction
 ) => {
-    console.log("cookie",await req.cookies);
     const token = await req.signedCookies["Token"];
-    console.log("token",token);
+
     if (!token || token.trim() === "") {
         res.status(401).send("Token not Received");
         console.log("Token not received");
@@ -24,7 +23,7 @@ export const verifyToken = async (
     }
     else {
         const verified=jwt.verify(token,`${process.env.JWT_SECRET}`);
-        console.log("verified",verified);
+
         if(verified){
             res.locals.jwtData=verified;
         }

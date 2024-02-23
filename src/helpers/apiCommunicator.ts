@@ -9,7 +9,7 @@ type Params = {
 
 export const signupUser = async ({ username, email, password, userType }: Params) => {
     try {
-        const res = await axios.post("http://localhost:2000/user/signup", { username, email, password, userType });
+        const res = await axios.post("http://localhost:2000/user/signup", { username, email, password, userType },{withCredentials:true});
         const data = await res.data;
         return data;
     }
@@ -21,7 +21,7 @@ export const signupUser = async ({ username, email, password, userType }: Params
 
 export const loginUser = async (email: string, password: string) => {
     try {
-        const res = await axios.post("http://localhost:2000/user/login", { email, password });
+        const res = await axios.post("http://localhost:2000/user/login", { email, password },{withCredentials:true});
         const data = await res.data;
         console.log(data);
         return data;
@@ -29,6 +29,18 @@ export const loginUser = async (email: string, password: string) => {
     catch (error) {
         console.log("Login API ERROR", error);
         return "Invalid Credentials"
+    }
+};
+
+export const authStatus = async () => {
+    try {
+        const res = await axios.get("http://localhost:2000/user/status",{withCredentials:true});
+        const data = await res.data;
+        return data;
+    }
+    catch (error) {
+        console.log("Auth Status API ERROR", error);
+        return "Unable to authenticate";
     }
 };
 
@@ -48,14 +60,3 @@ export const cart = async (name: string, price: number, quantity: number) => {
     console.log(data);
 };
 
-export const authStatus = async () => {
-    try {
-        const res = await axios.get("http://localhost:2000/user/status");
-        const data = await res.data;
-        return data;
-    }
-    catch (error) {
-        console.log("Auth Status API ERROR", error);
-        return "Unable to authenticate";
-    }
-};

@@ -22,22 +22,23 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             const newUser = yield userModel.create({ username, email, password: hashedPassword, userType });
             yield newUser.save();
             res.clearCookie("Token", {
-                // path: "/",
-                // domain: "localhost",
+                path: "/",
+                domain: "localhost",
                 httpOnly: true,
-                // signed: false
+                signed: true
             });
             const token = createToken(newUser._id.toString(), `${newUser.email}`, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
             res.cookie("Token", token, {
-                // path: "/",
-                // domain: "localhost",
+                path: "/",
+                domain: "localhost",
                 httpOnly: true,
-                // signed: false,
+                signed: true,
                 expires
             });
             res.status(201).send({ name: newUser.username, email: newUser.email, userType: newUser.userType });
+            console.log(req.cookies);
         }
     }
     catch (error) {
@@ -76,6 +77,15 @@ export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         }
     }
 });
+export const verifyUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield userModel.findById({ _id: res.locals.jwtData.id });
+    if (!user) {
+        res.status(401).send("User not registered");
+    }
+    else {
+        res.status(200).send({ name: user === null || user === void 0 ? void 0 : user.username, email: user === null || user === void 0 ? void 0 : user.email, userType: user === null || user === void 0 ? void 0 : user.userType });
+    }
+});
 export const userOrders = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, price, quantity } = req.body;
     const data = yield userModel.findByIdAndUpdate("65c74e87126c2fc6ecb7876d", { $push: { orders: { name, price, quantity } } });
@@ -86,14 +96,4 @@ export const userCart = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     const data = yield userModel.findByIdAndUpdate("65c74e87126c2fc6ecb7876d", { $push: { cart: { name, price, quantity } } });
     console.log("cart", data);
     res.status(200).send(data);
-});
-export const verifyUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield userModel.findById({ _id: res.locals.jwtData.id });
-    console.log("user", user);
-    if (!user) {
-        res.status(401).send("User not registered");
-    }
-    else {
-        res.status(200).send({ name: user === null || user === void 0 ? void 0 : user.username, email: user === null || user === void 0 ? void 0 : user.email, userType: user === null || user === void 0 ? void 0 : user.userType });
-    }
 });
