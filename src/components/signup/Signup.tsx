@@ -8,9 +8,6 @@ import BackButton from "../back button/BackButton";
 import ThemeButton from "../theme button/ThemeButton";
 import { ThemeContext } from "../../context/ThemeContext";
 import InputSection from "../input section/InputSection";
-import customer from "../../images/customer.png";
-import business from "../../images/business.png";
-import RadioButton from "../radio buttons/RadioButton";
 import { signupUser } from "../../helpers/apiCommunicator";
 
 const Signup = () => {
@@ -106,20 +103,6 @@ const Signup = () => {
                     placeholder="Password"
                     span={passwordSpan}
                 />
-                <section
-                    className="flex items-center justify-start gap-5 mt-2"
-                >
-                    <RadioButton
-                        id="Customer"
-                        src={customer}
-                        change={radioInputChange}
-                    />
-                    <RadioButton
-                        id="Business"
-                        src={business}
-                        change={radioInputChange}
-                    />
-                </section>
                 <button
                     type="submit"
                     className={`w-28 h-9 flex items-center justify-evenly text-white rounded-lg text-lg mt-6 mb-2 ${theme?.darkTheme ? "bg-gray-800 hover:bg-gray-600" : "bg-blue-600  shadow-md shadow-gray-300 hover:bg-white hover:text-blue-600"}`}

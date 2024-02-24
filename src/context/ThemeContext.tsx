@@ -26,12 +26,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
             const data = await authStatus();
             if (data) {
                 setUser({ name: data.name, email: data.email, userType: data.userType });
-                setIsLoggedIn(true);
+                setIsLoggedIn(true); 
             }
         };
         checkStatus();
     }, []);
-    console.log("after", user, isLoggedIn);
 
     const [darkTheme, setdarkTheme] = useState<boolean>(false);
 

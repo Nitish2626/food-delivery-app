@@ -1,54 +1,23 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useRef, useState } from "react";
-import mail from "../../images/email.png";
-import pw from "../../images/password.png";
-import { MdLogin } from "react-icons/md";
+import { useContext, useState } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 import BackButton from "../back button/BackButton";
 import ThemeButton from "../theme button/ThemeButton";
-import { ThemeContext } from "../../context/ThemeContext";
-import InputSection from "../input section/InputSection";
-import { loginUser } from "../../helpers/apiCommunicator";
+import Button from "../user type buttons/Button";
+import customer from "../../images/customer.png";
+import business from "../../images/business.png";
+import CustomerLogin from "../customer login/CustomerLogin";
+import BusinessLogin from "../business login/BusinessLogin";
 
 const Login = () => {
 
-    const navigate=useNavigate();
     const theme = useContext(ThemeContext);
 
-    const emailRef = useRef<HTMLInputElement | null>(null);
-    const passwordRef = useRef<HTMLInputElement | null>(null);
-
-    const [emailSpan, setEmailSpan] = useState<string>("");
-    const [passwordSpan, setPasswordSpan] = useState<string>("");
-
-    const login = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const res = await loginUser(emailRef.current?.value as string, passwordRef.current?.value as string);
-
-        if (res==="Invalid Credentials") {
-            setEmailSpan("Invalid Credentials");
-            setPasswordSpan("Invalid Credentials");
-            // theme?.login(emailRef.current?.value as string, passwordRef.current?.value as string);
-        }
-        else {
-            setEmailSpan("");
-            setPasswordSpan("");
-            if (emailRef.current && passwordRef.current) {
-                emailRef.current.value = "";
-                passwordRef.current.value = "";
-            }
-            alert("User Loggedin Successfully");
-            if(res.userType ==="customer"){
-                navigate("/customer-dashboard/home");
-            }
-            else{
-                navigate("/business-dashboard");
-            }
-        }
-    };
+    const [customerButtonClick, setCustomerButtonClick] = useState<boolean>(false);
+    const [businessButtonClick, setBusinessButtonClick] = useState<boolean>(false);
 
     return (
         <div
-            className={`w-full h-screen flex flex-col items-center gap-6 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
+            className={`w-full h-screen flex flex-col items-center gap-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
         >
             <section
                 className={`w-full flex items-start justify-between fixed top-0 py-1 px-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
@@ -57,57 +26,31 @@ const Login = () => {
                 <ThemeButton />
             </section>
 
-            <h1 className={`text-lg mt-20 ${theme?.darkTheme ? "text-white" : "text-black"}`}>
-                Login as
-                <strong className="text-blue-500 mx-1">
-                    Customer
-                </strong>
-                or
-                <strong className="text-blue-500 mx-1">
-                    Business
-                </strong>
-            </h1>
-
-            <form
-                method="post"
-                className={`w-11/12 flex flex-col items-center justify-center rounded-lg py-3 ${theme?.darkTheme ? "bg-gray-900 shadow-none" : "bg-white shadow-md shadow-gray-300 "}`}
-                onSubmit={login}
+            <section
+                className="flex items-center justify-center gap-3 mt-20"
             >
-                <InputSection
-                    reference={emailRef}
-                    src={mail}
-                    type="email"
-                    placeholder="Email"
-                    span={emailSpan}
+                <Button
+                    to="/login"
+                    src={customer}
+                    text="Customer"
+                    prevClick={setBusinessButtonClick}
+                    click={setCustomerButtonClick}
                 />
-                <InputSection
-                    reference={passwordRef}
-                    src={pw}
-                    type="password"
-                    placeholder="Password"
-                    span={passwordSpan}
+                <Button
+                    to="/login"
+                    src={business}
+                    text="Business"
+                    prevClick={setCustomerButtonClick}
+                    click={setBusinessButtonClick}
                 />
-                <button
-                    type="submit"
-                    className={`w-28 h-9 flex items-center justify-evenly text-white rounded-lg text-lg my-3  ${theme?.darkTheme ? "bg-gray-800 hover:bg-gray-700" : "bg-blue-600  shadow-md shadow-gray-300 hover:bg-white hover:text-blue-600"}`}
-                >
-                    Login
-                    <MdLogin
-                        className="w-6 h-6"
-                    />
-                </button>
+            </section>
 
-                <span className="text-gray-400">
-                    OR
-                </span>
-
-                <Link
-                    to="/signup"
-                    className="text-blue-500 text-lg font-semibold"
-                >
-                    Signup
-                </Link>
-            </form>
+            <section
+                className="w-full px-2"
+            >
+                {customerButtonClick && <CustomerLogin />}
+                {businessButtonClick && <BusinessLogin />}
+            </section>
         </div>
     );
 };
