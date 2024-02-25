@@ -3,27 +3,26 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { NavLink } from "react-router-dom";
 
 type Props = {
-    to:string;
+    to: string;
     src: string;
-    text:string;
-    prevClick:React.Dispatch<SetStateAction<boolean>>;
-    click:React.Dispatch<SetStateAction<boolean>>;
+    text: string;
+    prevClick: React.Dispatch<SetStateAction<boolean>>;
+    click: React.Dispatch<SetStateAction<boolean>>;
 };
 
-const Button = ({to,src,text,prevClick,click }: Props) => {
+const Button = ({ to, src, text, prevClick, click }: Props) => {
 
     const theme = useContext(ThemeContext);
 
-    const btnClick=()=>{
+    const btnClick = () => {
         prevClick(false);
         click(true);
-        console.log(text);
     };
 
     return (
         <NavLink
             to={to}
-            className={({isActive})=> isActive ? `${theme?.darkTheme ? "bg-gray-700" : "shadow-none bg-gray-200"}` : `flex items-center gap-2 px-1 py-1 rounded-md text-lg ${theme?.darkTheme ? "bg-gray-800 text-white" : "shadow-md shadow-gray-300"}`}
+            className={`flex items-center gap-2 px-1 py-1 rounded-md text-lg ${theme?.darkTheme ? "shadow-none text-white bg-gray-800 hover:bg-gray-700" : "shadow-md shadow-gray-300 hover:shadow-none hover:bg-gray-200"}`}
             onClick={btnClick}
         >
             <img

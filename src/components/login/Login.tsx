@@ -1,33 +1,29 @@
-import { useContext, useState } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
-import BackButton from "../back button/BackButton";
-import ThemeButton from "../theme button/ThemeButton";
+import { useState } from "react";
 import Button from "../user type buttons/Button";
 import customer from "../../images/customer.png";
 import business from "../../images/business.png";
 import CustomerLogin from "../customer login/CustomerLogin";
 import BusinessLogin from "../business login/BusinessLogin";
+import ContainerLoginSignup from "../login and signup container/ContainerLoginSignup";
+import TopBarLoginSignup from "../login and signup topbar/TopBarLoginSignup";
+import HeadingLoginSignup from "../heading login signup/HeadingLoginSignup";
 
 const Login = () => {
-
-    const theme = useContext(ThemeContext);
 
     const [customerButtonClick, setCustomerButtonClick] = useState<boolean>(false);
     const [businessButtonClick, setBusinessButtonClick] = useState<boolean>(false);
 
     return (
-        <div
-            className={`w-full h-screen flex flex-col items-center gap-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
-        >
-            <section
-                className={`w-full flex items-start justify-between fixed top-0 py-1 px-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
-            >
-                <BackButton />
-                <ThemeButton />
-            </section>
+        <ContainerLoginSignup >
+
+            <TopBarLoginSignup />
+
+            <HeadingLoginSignup 
+                text="Login" 
+            />
 
             <section
-                className="flex items-center justify-center gap-3 mt-20"
+                className="w-full flex items-center justify-between mt-5 px-2"
             >
                 <Button
                     to="/login"
@@ -51,7 +47,8 @@ const Login = () => {
                 {customerButtonClick && <CustomerLogin />}
                 {businessButtonClick && <BusinessLogin />}
             </section>
-        </div>
+
+        </ContainerLoginSignup>
     );
 };
 
