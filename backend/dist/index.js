@@ -9,7 +9,7 @@ const port = process.env.PORT || 2000;
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use("/user", appRouter);
+app.use(appRouter);
 app.listen(port, () => {
     dbConnection();
     console.log("Server started at", port);

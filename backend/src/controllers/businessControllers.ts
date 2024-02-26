@@ -1,0 +1,108 @@
+import { Request, Response, NextFunction } from "express";
+import { businessModel } from "../models/businessSchema.js";
+import bcrypt from "bcrypt";
+import { createToken } from "../utils/tokenManager.js";
+
+export const businessSignup = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { businessName, email, password } = req.body;
+        const userExists = await businessModel.findOne({ email });
+        if (userExists) {
+            res.status(401).send("Business Exists");
+        }
+        else {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const newBusiness = await businessModel.create({ businessName, email, password: hashedPassword });
+            await newBusiness.save();
+
+            res.clearCookie("Token", {
+                path: "/",
+                domain: "localhost",
+                httpOnly: true,
+                signed: true
+            });
+
+            const token = createToken(newBusiness._id.toString(), newBusiness.email, "10d");
+            const expires = new Date();
+            expires.setDate(expires.getDate() + 10);
+
+            res.cookie("Token", token, {
+                path: "/",
+                domain: "localhost",
+                httpOnly: true,
+                signed: true,
+                expires
+            });
+            res.status(201).send({ name: newBusiness.businessName, email: newBusiness.email });
+        }
+    }
+    catch (error) {
+        console.log("Business Signup ERROR", error);
+        res.status(501).send("Internal Server Error");
+    }
+};
+
+export const businessLogin = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { email, password } = req.body;
+        const findUser = await businessModel.findOne({ email });
+        if (!findUser) {
+            res.status(401).send("User Not Exists");
+        }
+        else {
+            const isPasswordCorrect = await bcrypt.compare(password, findUser.password);
+            if (!isPasswordCorrect) {
+                res.status(403).send("Incorrect Password");
+            }
+            else {
+                res.clearCookie("Token", {
+                    path: "/",
+                    domain: "localhost",
+                    httpOnly: true,
+                    signed: true
+                });
+    
+                const token = createToken(findUser._id.toString(), findUser.email, "10d");
+                const expires = new Date();
+                expires.setDate(expires.getDate() + 10);
+    
+                res.cookie("Token",token, {
+                    path: "/",
+                    domain: "localhost",
+                    httpOnly: true,
+                    signed: true,
+                    expires
+                });
+    
+                res.status(200).send({ name: findUser.businessName, email: findUser.email});
+            }
+        }
+    } 
+    catch (error) {
+        console.log("User Login ERROR", error);
+        res.status(501).send("Internal Server Error");
+    }
+};
+
+export const verifyBusiness=async(
+    req:Request,
+    res:Response,
+    next:NextFunction
+)=>{
+    const business= await businessModel.findById({_id:res.locals.jwtData.id});
+
+    if(!business){
+        res.status(401).send("Business not registered");
+    }
+    else{
+        res.status(200).send({name:business?.businessName,email:business?.email});
+    }
+}
