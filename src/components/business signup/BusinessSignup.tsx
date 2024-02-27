@@ -5,7 +5,7 @@ import user from "../../images/user.png";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import { FaUserPlus } from "react-icons/fa6";
-import { signupUser } from "../../helpers/apiCommunicator";
+import { signupBusiness } from "../../helpers/apiCommunicator";
 import { ThemeContext } from "../../context/ThemeContext";
 import FormContainer from '../form container/FormContainer';
 
@@ -15,21 +15,20 @@ const BusinessSignup = () => {
 
     const theme = useContext(ThemeContext);
 
-    const userRef = useRef<HTMLInputElement | null>(null);
+    const businessRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
     const [type, setType] = useState<string>("");
 
-    const [usernameSpan, setUsernameSpan] = useState<string>("");
+    const [businessNameSpan, setBusinessNameSpan] = useState<string>("");
     const [emailSpan, setEmailSpan] = useState<string>("");
     const [passwordSpan, setPasswordSpan] = useState<string>("");
 
     const data = {
-        username: userRef.current?.value as string,
+        businessName: businessRef.current?.value as string,
         email: emailRef.current?.value as string,
         password: passwordRef.current?.value as string,
-        userType: type.toLowerCase() as string
     };
 
     const signup = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,16 +39,16 @@ const BusinessSignup = () => {
             }
             else {
                 setPasswordSpan("");
-                const res = await signupUser(data);
+                const res = await signupBusiness(data);
 
                 if (res === "exists") {
                     setEmailSpan("User already registered Please Login !");
-                    await signupUser(data);
+                    await signupBusiness(data);
                 }
                 else {
                     setEmailSpan("");
-                    if (userRef.current && emailRef.current && passwordRef.current) {
-                        userRef.current.value = "";
+                    if (businessRef.current && emailRef.current && passwordRef.current) {
+                        businessRef.current.value = "";
                         emailRef.current.value = "";
                         passwordRef.current.value = "";
                         setType("");
@@ -67,11 +66,11 @@ const BusinessSignup = () => {
             submit={signup}
         >
             <InputSection
-                reference={userRef}
+                reference={businessRef}
                 src={user}
                 type="text"
                 placeholder="Username"
-                span={usernameSpan}
+                span={businessNameSpan}
             />
             <InputSection
                 reference={emailRef}

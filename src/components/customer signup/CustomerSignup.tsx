@@ -28,8 +28,7 @@ const CustomerSignup = () => {
     const data = {
         username: userRef.current?.value as string,
         email: emailRef.current?.value as string,
-        password: passwordRef.current?.value as string,
-        userType: type.toLowerCase() as string
+        password: passwordRef.current?.value as string
     };
 
     const signup = async (e: React.FormEvent<HTMLFormElement>) => {

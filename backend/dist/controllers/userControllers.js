@@ -14,6 +14,7 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     try {
         const { username, email, password } = req.body;
         const userExists = yield userModel.findOne({ email });
+        console.log(userExists);
         if (userExists) {
             res.status(401).send("User Exists");
         }

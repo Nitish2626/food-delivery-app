@@ -1,20 +1,38 @@
 import axios from "axios";
 
-type Params = {
+type userParams = {
     username: string;
     email: string;
     password: string;
-    userType: string
 };
 
-export const signupUser = async ({ username, email, password, userType }: Params) => {
+type businessParams={
+    businessName: string;
+    email: string;
+    password: string;
+};
+
+export const signupUser = async ({ username, email, password}: userParams) => {
     try {
-        const res = await axios.post("http://localhost:2000/user/signup", { username, email, password, userType },{withCredentials:true});
+        const res = await axios.post("http://localhost:2000/user/signup", { username, email, password },{withCredentials:true});
         const data = await res.data;
+        console.log(data);
         return data;
     }
     catch (error) {
-        console.log("Signup API ERROR", error);
+        console.log(" User Signup API ERROR", error);
+        return "exists";
+    }
+};
+
+export const signupBusiness=async({businessName,email,password}:businessParams)=>{
+    try {
+    const res=await axios.post("http://localhost:2000/business/signup",{businessName,email,password},{withCredentials:true});
+        const data=await res.data;
+        return data;
+    } 
+    catch (error) {
+        console.log("Business Signup API ERROR",error);
         return "exists";
     }
 };

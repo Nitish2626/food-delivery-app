@@ -11,7 +11,7 @@ export const userSignup = async (
     try {
         const { username, email, password} = req.body;
         const userExists = await userModel.findOne({ email });
-
+        console.log(userExists);
         if (userExists) {
             res.status(401).send("User Exists");
         }
