@@ -1,6 +1,6 @@
 import {Link, useNavigate } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
-import { loginUser } from "../../helpers/apiCommunicator";
+import { loginBusiness } from "../../helpers/apiCommunicator";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import { MdLogin } from "react-icons/md";
@@ -21,12 +21,11 @@ const BusinessLogin = () => {
 
     const login = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await loginUser(emailRef.current?.value as string, passwordRef.current?.value as string);
+        const res = await loginBusiness(emailRef.current?.value as string, passwordRef.current?.value as string);
 
         if (res === "Invalid Credentials") {
             setEmailSpan("Invalid Credentials");
             setPasswordSpan("Invalid Credentials");
-            // theme?.login(emailRef.current?.value as string, passwordRef.current?.value as string);
         }
         else {
             setEmailSpan("");
@@ -36,12 +35,7 @@ const BusinessLogin = () => {
                 passwordRef.current.value = "";
             }
             alert("User Loggedin Successfully");
-            if (res.userType === "customer") {
-                navigate("/customer-dashboard/home");
-            }
-            else {
-                navigate("/business-dashboard");
-            }
+            navigate("/business-dashboard");
         }
     }
 

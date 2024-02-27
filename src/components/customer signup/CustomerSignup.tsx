@@ -19,20 +19,19 @@ const CustomerSignup = () => {
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
-    const [type, setType] = useState<string>("");
-
     const [usernameSpan, setUsernameSpan] = useState<string>("");
     const [emailSpan, setEmailSpan] = useState<string>("");
     const [passwordSpan, setPasswordSpan] = useState<string>("");
 
-    const data = {
-        username: userRef.current?.value as string,
-        email: emailRef.current?.value as string,
-        password: passwordRef.current?.value as string
-    };
-
     const signup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const data = {
+            username: userRef.current?.value as string,
+            email: emailRef.current?.value as string,
+            password: passwordRef.current?.value as string
+        };
+        
         if (passwordRef.current) {
             if (passwordRef.current.value.length < 8) {
                 setPasswordSpan("Password must be 8 characters long !");
@@ -51,7 +50,6 @@ const CustomerSignup = () => {
                         userRef.current.value = "";
                         emailRef.current.value = "";
                         passwordRef.current.value = "";
-                        setType("");
                     }
                     alert("User Created Successfuly");
                     navigate("/login");

@@ -48,12 +48,12 @@ export const businessSignup = (req, res, next) => __awaiter(void 0, void 0, void
 export const businessLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
-        const findUser = yield businessModel.findOne({ email });
-        if (!findUser) {
+        const findBusiness = yield businessModel.findOne({ email });
+        if (!findBusiness) {
             res.status(401).send("User Not Exists");
         }
         else {
-            const isPasswordCorrect = yield bcrypt.compare(password, findUser.password);
+            const isPasswordCorrect = yield bcrypt.compare(password, findBusiness.password);
             if (!isPasswordCorrect) {
                 res.status(403).send("Incorrect Password");
             }
@@ -64,7 +64,7 @@ export const businessLogin = (req, res, next) => __awaiter(void 0, void 0, void 
                     httpOnly: true,
                     signed: true
                 });
-                const token = createToken(findUser._id.toString(), findUser.email, "10d");
+                const token = createToken(findBusiness._id.toString(), findBusiness.email, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
                 res.cookie("Token", token, {
@@ -74,7 +74,7 @@ export const businessLogin = (req, res, next) => __awaiter(void 0, void 0, void 
                     signed: true,
                     expires
                 });
-                res.status(200).send({ name: findUser.businessName, email: findUser.email });
+                res.status(200).send({ name: findBusiness.businessName, email: findBusiness.email });
             }
         }
     }

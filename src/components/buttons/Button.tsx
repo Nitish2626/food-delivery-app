@@ -1,16 +1,14 @@
 import { SetStateAction, useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { NavLink } from "react-router-dom";
 
 type Props = {
-    to: string;
     src: string;
     text: string;
     prevClick: React.Dispatch<SetStateAction<boolean>>;
     click: React.Dispatch<SetStateAction<boolean>>;
 };
 
-const Button = ({ to, src, text, prevClick, click }: Props) => {
+const Button = ({ src, text, prevClick, click }: Props) => {
 
     const theme = useContext(ThemeContext);
 
@@ -20,8 +18,7 @@ const Button = ({ to, src, text, prevClick, click }: Props) => {
     };
 
     return (
-        <NavLink
-            to={to}
+        <button
             className={`flex items-center gap-2 px-1 py-1 rounded-md text-lg ${theme?.darkTheme ? "shadow-none text-white bg-gray-800 hover:bg-gray-700" : "shadow-md shadow-gray-300 hover:shadow-none hover:bg-gray-200"}`}
             onClick={btnClick}
         >
@@ -31,7 +28,7 @@ const Button = ({ to, src, text, prevClick, click }: Props) => {
                 alt={text}
             />
             {text}
-        </NavLink>
+        </button>
     );
 };
 

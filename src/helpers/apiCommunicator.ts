@@ -6,17 +6,16 @@ type userParams = {
     password: string;
 };
 
-type businessParams={
+type businessParams = {
     businessName: string;
     email: string;
     password: string;
 };
 
-export const signupUser = async ({ username, email, password}: userParams) => {
+export const signupUser = async ({ username, email, password }: userParams) => {
     try {
-        const res = await axios.post("http://localhost:2000/user/signup", { username, email, password },{withCredentials:true});
+        const res = await axios.post("http://localhost:2000/user/signup", { username, email, password }, { withCredentials: true });
         const data = await res.data;
-        console.log(data);
         return data;
     }
     catch (error) {
@@ -25,23 +24,22 @@ export const signupUser = async ({ username, email, password}: userParams) => {
     }
 };
 
-export const signupBusiness=async({businessName,email,password}:businessParams)=>{
+export const signupBusiness = async ({ businessName, email, password }: businessParams) => {
     try {
-    const res=await axios.post("http://localhost:2000/business/signup",{businessName,email,password},{withCredentials:true});
-        const data=await res.data;
+        const res = await axios.post("http://localhost:2000/business/signup", { businessName, email, password }, { withCredentials: true });
+        const data = await res.data;
         return data;
-    } 
+    }
     catch (error) {
-        console.log("Business Signup API ERROR",error);
+        console.log("Business Signup API ERROR", error);
         return "exists";
     }
 };
 
 export const loginUser = async (email: string, password: string) => {
     try {
-        const res = await axios.post("http://localhost:2000/user/login", { email, password },{withCredentials:true});
+        const res = await axios.post("http://localhost:2000/user/login", { email, password }, { withCredentials: true });
         const data = await res.data;
-        console.log(data);
         return data;
     }
     catch (error) {
@@ -50,9 +48,21 @@ export const loginUser = async (email: string, password: string) => {
     }
 };
 
+export const loginBusiness = async (email: string, password: string) => {
+    try {
+        const res=await axios.post("http://localhost:2000/business/login",{email,password},{withCredentials:true});
+        const data=await res.data;
+        return data;
+    } 
+    catch (error) {
+        console.log("Business Login API ERROR",error);
+        return "Invalid Credentials";
+    }
+}
+
 export const authStatus = async () => {
     try {
-        const res = await axios.get("http://localhost:2000/user/status",{withCredentials:true});
+        const res = await axios.get("http://localhost:2000/user/status", { withCredentials: true });
         const data = await res.data;
         return data;
     }

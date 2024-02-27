@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useRef, useContext } from "react";
 import InputSection from "../input section/InputSection";
-import user from "../../images/user.png";
+import businessman from "../../images/businessman.png";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import { FaUserPlus } from "react-icons/fa6";
@@ -19,20 +19,19 @@ const BusinessSignup = () => {
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
-    const [type, setType] = useState<string>("");
-
     const [businessNameSpan, setBusinessNameSpan] = useState<string>("");
     const [emailSpan, setEmailSpan] = useState<string>("");
     const [passwordSpan, setPasswordSpan] = useState<string>("");
 
-    const data = {
-        businessName: businessRef.current?.value as string,
-        email: emailRef.current?.value as string,
-        password: passwordRef.current?.value as string,
-    };
-
     const signup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const data = {
+            businessName: businessRef.current?.value as string,
+            email: emailRef.current?.value as string,
+            password: passwordRef.current?.value as string,
+        };
+
         if (passwordRef.current) {
             if (passwordRef.current.value.length < 8) {
                 setPasswordSpan("Password must be 8 characters long !");
@@ -51,7 +50,6 @@ const BusinessSignup = () => {
                         businessRef.current.value = "";
                         emailRef.current.value = "";
                         passwordRef.current.value = "";
-                        setType("");
                     }
                     alert("User Created Successfuly");
                     navigate("/login");
@@ -67,9 +65,9 @@ const BusinessSignup = () => {
         >
             <InputSection
                 reference={businessRef}
-                src={user}
+                src={businessman}
                 type="text"
-                placeholder="Username"
+                placeholder="Business Name"
                 span={businessNameSpan}
             />
             <InputSection

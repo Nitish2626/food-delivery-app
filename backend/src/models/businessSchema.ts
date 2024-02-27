@@ -2,17 +2,14 @@ import mongoose,{Schema} from "mongoose";
 
 const businessSchema=new Schema({
     businessName: {
-        type: String,
-        required: true
+        type: String
     },
     email: {
         type: String,
-        unique: true,
-        required: true
+        unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     }
 });
 

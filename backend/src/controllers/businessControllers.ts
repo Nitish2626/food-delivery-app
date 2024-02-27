@@ -26,7 +26,7 @@ export const businessSignup = async (
                 signed: true
             });
 
-            const token = createToken(newBusiness._id.toString(), newBusiness.email, "10d");
+            const token = createToken(newBusiness._id.toString(), newBusiness.email as string, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
 
@@ -53,12 +53,12 @@ export const businessLogin = async (
 ) => {
     try {
         const { email, password } = req.body;
-        const findUser = await businessModel.findOne({ email });
-        if (!findUser) {
+        const findBusiness= await businessModel.findOne({ email });
+        if (!findBusiness) {
             res.status(401).send("User Not Exists");
         }
         else {
-            const isPasswordCorrect = await bcrypt.compare(password, findUser.password);
+            const isPasswordCorrect = await bcrypt.compare(password, findBusiness.password as string);
             if (!isPasswordCorrect) {
                 res.status(403).send("Incorrect Password");
             }
@@ -70,7 +70,7 @@ export const businessLogin = async (
                     signed: true
                 });
     
-                const token = createToken(findUser._id.toString(), findUser.email, "10d");
+                const token = createToken(findBusiness._id.toString(), findBusiness.email as string, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
     
@@ -82,7 +82,7 @@ export const businessLogin = async (
                     expires
                 });
     
-                res.status(200).send({ name: findUser.businessName, email: findUser.email});
+                res.status(200).send({ name: findBusiness.businessName, email: findBusiness.email});
             }
         }
     } 

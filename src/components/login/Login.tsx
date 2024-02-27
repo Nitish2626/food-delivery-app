@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../user type buttons/Button";
+import Button from "../buttons/Button";
 import customer from "../../images/customer.png";
 import business from "../../images/business.png";
 import CustomerLogin from "../customer login/CustomerLogin";
@@ -26,14 +26,12 @@ const Login = () => {
                 className="w-full flex items-center justify-between mt-5 px-2"
             >
                 <Button
-                    to="/login"
                     src={customer}
                     text="Customer"
                     prevClick={setBusinessButtonClick}
                     click={setCustomerButtonClick}
                 />
                 <Button
-                    to="/login"
                     src={business}
                     text="Business"
                     prevClick={setCustomerButtonClick}

@@ -36,12 +36,7 @@ const CustomerLogin = () => {
                 passwordRef.current.value = "";
             }
             alert("User Loggedin Successfully");
-            if (res.userType === "customer") {
-                navigate("/customer-dashboard/home");
-            }
-            else {
-                navigate("/business-dashboard");
-            }
+            navigate("/customer-dashboard/home");
         }
     }
 

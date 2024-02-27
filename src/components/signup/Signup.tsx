@@ -1,11 +1,12 @@
 import { useState } from "react";
-import Button from "../user type buttons/Button";
+import Button from "../buttons/Button";
 import customer from "../../images/customer.png";
 import business from "../../images/business.png";
 import CustomerSignup from "../customer signup/CustomerSignup";
 import ContainerLoginSignup from "../login and signup container/ContainerLoginSignup";
 import TopBarLoginSignup from "../login and signup topbar/TopBarLoginSignup";
 import HeadingLoginSignup from "../heading login signup/HeadingLoginSignup";
+import BusinessSignup from "../business signup/BusinessSignup";
 
 
 const Signup = () => {
@@ -26,14 +27,12 @@ const Signup = () => {
                 className="w-full flex items-center justify-between mt-5 px-2"
             >
                 <Button
-                    to="/signup"
                     src={customer}
                     text="Customer"
                     prevClick={setBusinessButtonClick}
                     click={setCustomerButtonClick}
                 />
                 <Button
-                    to="/signup"
                     src={business}
                     text="Business"
                     prevClick={setCustomerButtonClick}
@@ -45,7 +44,7 @@ const Signup = () => {
                 className="w-full px-2"
             >
                 {customerButtonClick && <CustomerSignup />}
-                {businessButtonClick && <CustomerSignup />}
+                {businessButtonClick && <BusinessSignup />}
             </section>
 
         </ContainerLoginSignup>
