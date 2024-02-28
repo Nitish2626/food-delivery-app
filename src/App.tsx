@@ -2,11 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/home/Home";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
-import BusinessDashboard from "./components/business dashboard/BusinessDashboard";
 import CartCustomerDashboard from "./components/cart customer dashboard/CartCustomerDashboard";
 import HomeCustomerDashboard from "./components/home customer dashboard/HomeCustomerDashboard";
 import OrdersCustomerDashboard from "./components/orders customer dashboard/OrdersCustomerDashboard";
 import AccountCustomerDashboard from "./components/account customer dashboard/AccountCustomerDashboard";
+import HomeBusinessDashboard from "./components/home business dashboard/HomeBusinessDashboard";
 
 const App = () => {
 
@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/customer-dashboard/orders" element={<OrdersCustomerDashboard />}></Route>
           <Route path="/customer-dashboard/cart" element={<CartCustomerDashboard />}></Route>
           <Route path="/customer-dashboard/account" element={<AccountCustomerDashboard />}></Route>
-          <Route path="/business-dashboard" element={<BusinessDashboard />}></Route>
+          <Route path="/business-dashboard/home" element={<HomeBusinessDashboard/>}></Route>
         </Routes>
       </Router>
     </div>

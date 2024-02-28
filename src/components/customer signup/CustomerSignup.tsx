@@ -5,7 +5,7 @@ import user from "../../images/user.png";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import { FaUserPlus } from "react-icons/fa6";
-import { signupUser } from "../../helpers/apiCommunicator";
+import { signupUser } from "../../helpers/customerApiCommunicator";
 import { ThemeContext } from "../../context/ThemeContext";
 import FormContainer from "../form container/FormContainer";
 

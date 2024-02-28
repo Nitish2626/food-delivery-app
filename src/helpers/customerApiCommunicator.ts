@@ -6,12 +6,6 @@ type userParams = {
     password: string;
 };
 
-type businessParams = {
-    businessName: string;
-    email: string;
-    password: string;
-};
-
 export const signupUser = async ({ username, email, password }: userParams) => {
     try {
         const res = await axios.post("http://localhost:2000/user/signup", { username, email, password }, { withCredentials: true });
@@ -20,18 +14,6 @@ export const signupUser = async ({ username, email, password }: userParams) => {
     }
     catch (error) {
         console.log(" User Signup API ERROR", error);
-        return "exists";
-    }
-};
-
-export const signupBusiness = async ({ businessName, email, password }: businessParams) => {
-    try {
-        const res = await axios.post("http://localhost:2000/business/signup", { businessName, email, password }, { withCredentials: true });
-        const data = await res.data;
-        return data;
-    }
-    catch (error) {
-        console.log("Business Signup API ERROR", error);
         return "exists";
     }
 };
@@ -47,18 +29,6 @@ export const loginUser = async (email: string, password: string) => {
         return "Invalid Credentials"
     }
 };
-
-export const loginBusiness = async (email: string, password: string) => {
-    try {
-        const res=await axios.post("http://localhost:2000/business/login",{email,password},{withCredentials:true});
-        const data=await res.data;
-        return data;
-    } 
-    catch (error) {
-        console.log("Business Login API ERROR",error);
-        return "Invalid Credentials";
-    }
-}
 
 export const authStatus = async () => {
     try {

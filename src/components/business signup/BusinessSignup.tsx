@@ -5,7 +5,7 @@ import businessman from "../../images/businessman.png";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import { FaUserPlus } from "react-icons/fa6";
-import { signupBusiness } from "../../helpers/apiCommunicator";
+import { signupBusiness } from "../../helpers/businessApiCommunicator";
 import { ThemeContext } from "../../context/ThemeContext";
 import FormContainer from '../form container/FormContainer';
 

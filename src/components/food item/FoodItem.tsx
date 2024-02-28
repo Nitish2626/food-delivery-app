@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import kart from "../../images/cart.png";
 import { ThemeContext } from "../../context/ThemeContext";
 import IncreDecreButton from "../increment decrement button/IncreDecreButton";
-import { orders,cart } from "../../helpers/apiCommunicator";
+import { orders,cart } from "../../helpers/customerApiCommunicator";
 
 type Props = {
     src: string;

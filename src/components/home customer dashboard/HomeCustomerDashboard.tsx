@@ -14,7 +14,8 @@ import dosa from "../../images/dosa.png";
 import paneer from "../../images/paneer.png";
 import iceCream from "../../images/ice-cream.png";
 import FoodItem from '../food item/FoodItem';
-import BottomBar from '../bottom bar/BottomBar';
+import BottomBar from '../customer bottom bar/CustomerBottomBar';
+import HomeTopbarContainer from '../home topbar container/HomeTopbarContainer';
 
 const HomeCustomerDashboard = () => {
 
@@ -34,13 +35,11 @@ const HomeCustomerDashboard = () => {
 
     return (
         <div>
-            <section
-                className={`w-full flex items-center justify-between gap-4 sticky top-0 py-1 px-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
-            >
+            <HomeTopbarContainer>
                 <Logo />
                 <SearchBar />
                 <ThemeButton />
-            </section>
+            </HomeTopbarContainer>
 
             <section className={`flex items-center gap-2 overflow-auto no-scrollbar py-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}>
                 {foodItems.map((f, i) => (

@@ -1,11 +1,12 @@
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
-import { loginBusiness } from "../../helpers/apiCommunicator";
+import { loginBusiness } from "../../helpers/businessApiCommunicator";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import { MdLogin } from "react-icons/md";
 import InputSection from "../input section/InputSection";
 import { ThemeContext } from "../../context/ThemeContext";
+import FormContainer from "../form container/FormContainer";
 
 const BusinessLogin = () => {
 
@@ -35,15 +36,13 @@ const BusinessLogin = () => {
                 passwordRef.current.value = "";
             }
             alert("User Loggedin Successfully");
-            navigate("/business-dashboard");
+            navigate("/business-dashboard/home");
         }
     }
 
     return (
-        <form
-            method="post"
-            className={`w-full flex flex-col items-center justify-center rounded-lg py-3 ${theme?.darkTheme ? "bg-gray-900 shadow-none" : "bg-white shadow-md shadow-gray-300 "}`}
-            onSubmit={login}
+        <FormContainer 
+            submit={login}
         >
             <InputSection
                 reference={emailRef}
@@ -79,7 +78,7 @@ const BusinessLogin = () => {
             >
                 Signup
             </Link>
-        </form>
+        </FormContainer>
     );
 };
 

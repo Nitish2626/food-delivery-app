@@ -1,5 +1,4 @@
-import React from 'react'
-import BottomBar from '../bottom bar/BottomBar';
+import BottomBar from '../customer bottom bar/CustomerBottomBar';
 
 const AccountCustomerDashboard = () => {
   return (
