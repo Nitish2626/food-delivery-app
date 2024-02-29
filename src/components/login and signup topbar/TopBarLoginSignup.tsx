@@ -11,7 +11,7 @@ const TopBarLoginSignup = () => {
         <section
             className={`w-full flex items-start justify-between fixed top-0 py-1 px-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}
         >
-            <BackButton />
+            <BackButton to="/" />
             <ThemeButton />
         </section>
     );

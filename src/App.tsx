@@ -7,6 +7,7 @@ import HomeCustomerDashboard from "./components/home customer dashboard/HomeCust
 import OrdersCustomerDashboard from "./components/orders customer dashboard/OrdersCustomerDashboard";
 import AccountCustomerDashboard from "./components/account customer dashboard/AccountCustomerDashboard";
 import HomeBusinessDashboard from "./components/home business dashboard/HomeBusinessDashboard";
+import AddFoodItemForm from "./components/add food item form/AddFoodItemForm";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/customer-dashboard/cart" element={<CartCustomerDashboard />}></Route>
           <Route path="/customer-dashboard/account" element={<AccountCustomerDashboard />}></Route>
           <Route path="/business-dashboard/home" element={<HomeBusinessDashboard/>}></Route>
+          <Route path="/business/add-product" element={<AddFoodItemForm />}></Route>
         </Routes>
       </Router>
     </div>

@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import products from "../../images/products.png";
 import { ThemeContext } from "../../context/ThemeContext";
 import AddProductButton from "../add product button/AddProductButton";
+import AddFoodItemForm from "../add food item form/AddFoodItemForm";
 
 const MyProductsContainer = () => {
 
@@ -17,6 +18,7 @@ const MyProductsContainer = () => {
                 <img
                     src={products}
                     className="w-8 h-8"
+                    alt="Product Icon"
                 />
                 <h1
                     className={`text-lg font-semibold`}
@@ -25,7 +27,7 @@ const MyProductsContainer = () => {
                 </h1>
             </section>
 
-            <section className="px-1">
+            <section className="w-full flex items-center flex-wrap px-1 ">
                 <AddProductButton />
             </section>
         </div>

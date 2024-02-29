@@ -5,7 +5,7 @@ type Props = {
     reference: React.RefObject<HTMLInputElement>;
     src: string;
     type: string;
-    span: React.ReactNode;
+    span?: React.ReactNode;
     placeholder: string;
 };
 
