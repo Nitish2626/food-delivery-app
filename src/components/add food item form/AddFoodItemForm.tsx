@@ -10,13 +10,16 @@ import HeadingLoginSignup from '../heading login signup/HeadingLoginSignup';
 import url from "../../images/url.png";
 import price from "../../images/price.png";
 import discount from "../../images/discount.png";
+import add from "../../images/add-product.png";
+import CrudButtons from '../crud buttons/CrudButtons';
+import { IoMdAdd } from "react-icons/io";
 
 const AddFoodItemForm = () => {
 
     const foodNameRef = useRef<HTMLInputElement | null>(null);
-    const foodImageRef=useRef<HTMLInputElement | null>(null);
-    const foodPriceRef=useRef<HTMLInputElement | null>(null);
-    const foodDiscountPriceRef=useRef<HTMLInputElement | null>(null);
+    const foodImageRef = useRef<HTMLInputElement | null>(null);
+    const foodPriceRef = useRef<HTMLInputElement | null>(null);
+    const foodDiscountPriceRef = useRef<HTMLInputElement | null>(null);
 
     const addFoodItem = () => {
 
@@ -25,7 +28,9 @@ const AddFoodItemForm = () => {
     return (
         <ContainerLoginSignup>
             <HomeTopbarContainer>
-                <BackButton to="/business-dashboard/home" />
+                <BackButton
+                    to="/business-dashboard/home"
+                />
                 <ThemeButton />
             </HomeTopbarContainer>
 
@@ -60,6 +65,14 @@ const AddFoodItemForm = () => {
                     type='text'
                     placeholder='Discount on Food (%)'
                 />
+                <CrudButtons
+                    bg="bg-green-600"
+                    hover="hover:bg-green-700"
+                >
+                    <IoMdAdd
+                        className='w-7 h-7 text-white'
+                    />
+                </CrudButtons>
             </FormContainer>
         </ContainerLoginSignup>
     );

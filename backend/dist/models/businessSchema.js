@@ -9,6 +9,14 @@ const businessSchema = new Schema({
     },
     password: {
         type: String
-    }
+    },
+    products: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "product"
+        }
+    ]
+}, {
+    timestamps: true
 });
 export const businessModel = mongoose.model("businesse", businessSchema);

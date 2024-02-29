@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { businessModel } from "../models/businessSchema.js";
 import bcrypt from "bcrypt";
 import { createToken } from "../utils/tokenManager.js";
+import { businessModel } from "../models/businessSchema.js";
+import { productsModel } from "../models/productsSchema.js";
 
 export const businessSignup = async (
     req: Request,
@@ -105,4 +106,21 @@ export const verifyBusiness=async(
     else{
         res.status(200).send({name:business?.businessName,email:business?.email});
     }
-}
+};
+
+export const addFood=async(
+    req:Request,
+    res:Response,
+    next:NextFunction
+)=>{
+    try {
+        const {foodName,foodImage,foodPrice,foodDiscount}=req.body;
+        const addFood=await productsModel.create({foodName,foodImage,foodPrice,foodDiscount});
+        console.log(addFood);
+        res.status(200).send("Food Item Added Successfully");
+    } 
+    catch (error) {
+        console.log("Adding Food Item ERROR",error);
+        res.status(501).send("Internal Server Error");
+    }
+};

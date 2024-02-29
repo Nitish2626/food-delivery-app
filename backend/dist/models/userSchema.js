@@ -12,6 +12,8 @@ const userCartSchema = new Schema({
         type: Number,
         required: true
     }
+}, {
+    timestamps: true
 });
 const userOrdersSchema = new Schema({
     name: {

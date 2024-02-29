@@ -1,18 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { loginBusiness } from "../../helpers/businessApiCommunicator";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
-import { MdLogin } from "react-icons/md";
 import InputSection from "../input section/InputSection";
-import { ThemeContext } from "../../context/ThemeContext";
 import FormContainer from "../form container/FormContainer";
+import LoginButtons from "../login buttons/LoginButtons";
 
 const BusinessLogin = () => {
 
     const navigate = useNavigate();
-
-    const theme = useContext(ThemeContext);
 
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -41,7 +38,7 @@ const BusinessLogin = () => {
     }
 
     return (
-        <FormContainer 
+        <FormContainer
             submit={login}
         >
             <InputSection
@@ -58,15 +55,8 @@ const BusinessLogin = () => {
                 placeholder="Password"
                 span={passwordSpan}
             />
-            <button
-                type="submit"
-                className={`w-28 h-9 flex items-center justify-evenly text-white rounded-lg text-lg my-3  ${theme?.darkTheme ? "bg-gray-800 hover:bg-gray-700" : "bg-blue-600  shadow-md shadow-gray-300 hover:bg-white hover:text-blue-600"}`}
-            >
-                Login
-                <MdLogin
-                    className="w-6 h-6"
-                />
-            </button>
+
+            <LoginButtons />
 
             <span className="text-gray-400">
                 OR

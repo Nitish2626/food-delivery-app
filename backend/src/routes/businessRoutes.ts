@@ -1,5 +1,5 @@
 import express from "express";
-import { businessLogin, businessSignup, verifyBusiness } from "../controllers/businessControllers.js";
+import { addFood, businessLogin, businessSignup, verifyBusiness } from "../controllers/businessControllers.js";
 import { verifyToken } from "../utils/tokenManager.js";
 
 export const businessRouter=express.Router();
@@ -8,4 +8,5 @@ export const businessRouter=express.Router();
 businessRouter.post("/signup",businessSignup);
 businessRouter.post("/login",businessLogin);
 businessRouter.get("/status",verifyToken,verifyBusiness);
+businessRouter.post("/add",addFood);
 

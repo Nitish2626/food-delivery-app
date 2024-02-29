@@ -7,9 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { businessModel } from "../models/businessSchema.js";
 import bcrypt from "bcrypt";
 import { createToken } from "../utils/tokenManager.js";
+import { businessModel } from "../models/businessSchema.js";
+import { productsModel } from "../models/productsSchema.js";
 export const businessSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { businessName, email, password } = req.body;
@@ -90,5 +91,17 @@ export const verifyBusiness = (req, res, next) => __awaiter(void 0, void 0, void
     }
     else {
         res.status(200).send({ name: business === null || business === void 0 ? void 0 : business.businessName, email: business === null || business === void 0 ? void 0 : business.email });
+    }
+});
+export const addFood = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { foodName, foodImage, foodPrice, foodDiscount } = req.body;
+        const addFood = yield productsModel.create({ foodName, foodImage, foodPrice, foodDiscount });
+        console.log(addFood);
+        res.status(200).send("Food Item Added Successfully");
+    }
+    catch (error) {
+        console.log("Adding Food Item ERROR", error);
+        res.status(501).send("Internal Server Error");
     }
 });

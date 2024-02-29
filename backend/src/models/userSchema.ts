@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const userCartSchema= new Schema({
+const userCartSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -13,7 +13,11 @@ const userCartSchema= new Schema({
         type: Number,
         required: true
     }
-});
+},
+    {
+        timestamps: true
+    }
+);
 
 const userOrdersSchema = new Schema({
     name: {
@@ -47,17 +51,17 @@ const userSchema = new Schema(
         },
         orders: [
             {
-                type:userOrdersSchema
+                type: userOrdersSchema
             }
         ],
-        cart:[
+        cart: [
             {
-                type:userCartSchema
+                type: userCartSchema
             }
         ]
     },
     {
-        timestamps:true
+        timestamps: true
     }
 );
 

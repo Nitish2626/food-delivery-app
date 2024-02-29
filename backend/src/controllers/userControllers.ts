@@ -130,5 +130,5 @@ export const userCart = async (
     const data = await userModel.findByIdAndUpdate("65c74e87126c2fc6ecb7876d", { $push: { cart: { name, price, quantity } } });
     console.log("cart", data);
     res.status(200).send(data);
-}
+};
 
