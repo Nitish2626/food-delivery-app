@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/customer-dashboard/cart" element={<CartCustomerDashboard />}></Route>
           <Route path="/customer-dashboard/account" element={<AccountCustomerDashboard />}></Route>
           <Route path="/business-dashboard/home" element={<HomeBusinessDashboard/>}></Route>
-          <Route path="/business/add-product" element={<AddFoodItemForm />}></Route>
+          <Route path="/business-dashboard/home/add-product" element={<AddFoodItemForm />}></Route>
         </Routes>
       </Router>
     </div>

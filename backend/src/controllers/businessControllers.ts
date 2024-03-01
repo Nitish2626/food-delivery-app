@@ -116,8 +116,8 @@ export const addFood=async(
     try {
         const {foodName,foodImage,foodPrice,foodDiscount}=req.body;
         const addFood=await productsModel.create({foodName,foodImage,foodPrice,foodDiscount});
-        console.log(addFood);
-        res.status(200).send("Food Item Added Successfully");
+        await addFood.save();
+        res.status(200).send(addFood);
     } 
     catch (error) {
         console.log("Adding Food Item ERROR",error);

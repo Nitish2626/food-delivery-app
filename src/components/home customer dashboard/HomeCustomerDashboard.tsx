@@ -45,8 +45,13 @@ const HomeCustomerDashboard = () => {
 
     const getFoodItems = async () => {
         const items = await getFood();
-        console.log(items);
-        setFoodItems(items);
+        if (!items) {
+            alert("Something went wrong !");
+        }
+        else {
+            console.log(items);
+            setFoodItems(items);
+        }
     };
 
     useEffect(() => {

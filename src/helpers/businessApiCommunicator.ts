@@ -30,11 +30,12 @@ export const loginBusiness = async (email: string, password: string) => {
     }
 };
 
-export const addFood = async (foodName: string, foodImage: string, foodPrice: number, foodDiscount: number) => {
+export const addFood = async (foodName: string, foodImage: string, foodPrice:number, foodDiscount: number) => {
     try {
         const res=await axios.post("http://localhost:2000/business/add",{foodName,foodImage,foodPrice,foodDiscount},{withCredentials:true});
         const data=await res.data;
         console.log(data);
+        return data;
     } 
     catch (error) {
         console.log("Add Food API Error",error);

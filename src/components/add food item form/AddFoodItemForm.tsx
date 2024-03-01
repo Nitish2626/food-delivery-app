@@ -10,9 +10,9 @@ import HeadingLoginSignup from '../heading login signup/HeadingLoginSignup';
 import url from "../../images/url.png";
 import price from "../../images/price.png";
 import discount from "../../images/discount.png";
-import add from "../../images/add-product.png";
 import CrudButtons from '../crud buttons/CrudButtons';
 import { IoMdAdd } from "react-icons/io";
+import { addFood } from '../../helpers/businessApiCommunicator';
 
 const AddFoodItemForm = () => {
 
@@ -21,8 +21,21 @@ const AddFoodItemForm = () => {
     const foodPriceRef = useRef<HTMLInputElement | null>(null);
     const foodDiscountPriceRef = useRef<HTMLInputElement | null>(null);
 
-    const addFoodItem = () => {
+    const addFoodItem = async () => {
+        const foodPrice = Number(foodPriceRef.current?.value);
+        const discountPrice = Number(foodDiscountPriceRef.current?.value);
 
+        const add = await addFood(foodNameRef.current?.value as string, foodImageRef.current?.value as string, foodPrice, discountPrice);
+
+        console.log(await add);
+        alert("Food item added successfully");
+
+        if (foodNameRef.current && foodImageRef.current && foodPriceRef.current && foodDiscountPriceRef.current) {
+            foodNameRef.current.value = "";
+            foodImageRef.current.value = "";
+            foodPriceRef.current.value = "";
+            foodDiscountPriceRef.current.value = "";
+        }
     };
 
     return (

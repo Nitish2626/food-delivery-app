@@ -97,8 +97,8 @@ export const addFood = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     try {
         const { foodName, foodImage, foodPrice, foodDiscount } = req.body;
         const addFood = yield productsModel.create({ foodName, foodImage, foodPrice, foodDiscount });
-        console.log(addFood);
-        res.status(200).send("Food Item Added Successfully");
+        yield addFood.save();
+        res.status(200).send(addFood);
     }
     catch (error) {
         console.log("Adding Food Item ERROR", error);
