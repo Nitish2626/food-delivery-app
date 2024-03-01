@@ -124,3 +124,18 @@ export const addFood=async(
         res.status(501).send("Internal Server Error");
     }
 };
+
+export const getFood=async(
+    req:Request,
+    res:Response,
+    next:NextFunction
+)=>{
+    try {
+        const findFood=await productsModel.find();
+        res.status(200).send(findFood);
+    } 
+    catch (error) {
+        console.log("Finding food item ERROR",error);
+        res.status(501).send("Internal Server ERROR")
+    }
+};

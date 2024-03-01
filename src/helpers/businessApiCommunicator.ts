@@ -30,7 +30,7 @@ export const loginBusiness = async (email: string, password: string) => {
     }
 };
 
-export const AddFood = async (foodName: string, foodImage: string, foodPrice: number, foodDiscount: number) => {
+export const addFood = async (foodName: string, foodImage: string, foodPrice: number, foodDiscount: number) => {
     try {
         const res=await axios.post("http://localhost:2000/business/add",{foodName,foodImage,foodPrice,foodDiscount},{withCredentials:true});
         const data=await res.data;
@@ -40,3 +40,14 @@ export const AddFood = async (foodName: string, foodImage: string, foodPrice: nu
         console.log("Add Food API Error",error);
     }
 };
+
+export const getFood=async()=>{
+    try {
+        const res=await axios.get("http://localhost:2000/business/get");
+        const data=await res.data;
+        return data;
+    } 
+    catch (error) {
+        console.log("Find Food API Error",error);
+    }
+}

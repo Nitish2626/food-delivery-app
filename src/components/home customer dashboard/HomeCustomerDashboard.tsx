@@ -1,7 +1,7 @@
 import Logo from '../logo/Logo';
 import ThemeButton from '../theme button/ThemeButton';
 import SearchBar from '../search-bar/SearchBar';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 import FoodCategory from '../food category list/FoodCategory';
 import burger from "../../images/burger.png";
@@ -16,12 +16,20 @@ import iceCream from "../../images/ice-cream.png";
 import FoodItem from '../food item/FoodItem';
 import BottomBar from '../customer bottom bar/CustomerBottomBar';
 import HomeTopbarContainer from '../home topbar container/HomeTopbarContainer';
+import { getFood } from '../../helpers/businessApiCommunicator';
+
+type Objects = {
+    foodName: string;
+    foodImage: string;
+    foodPrice: number;
+    foodDiscount: Number;
+};
 
 const HomeCustomerDashboard = () => {
 
     const theme = useContext(ThemeContext);
 
-    const foodItems = [
+    const foodCategory = [
         { src: pizza, name: "Pizza" },
         { src: burger, name: "Burger" },
         { src: paneer, name: "Paneer" },
@@ -33,6 +41,18 @@ const HomeCustomerDashboard = () => {
         { src: iceCream, name: "Cream" },
     ];
 
+    const [foodItems, setFoodItems] = useState<Objects[]>([]);
+
+    const getFoodItems = async () => {
+        const items = await getFood();
+        console.log(items);
+        setFoodItems(items);
+    };
+
+    useEffect(() => {
+        getFoodItems();
+    }, [foodItems.length]);
+
     return (
         <div>
             <HomeTopbarContainer>
@@ -42,61 +62,24 @@ const HomeCustomerDashboard = () => {
             </HomeTopbarContainer>
 
             <section className={`flex items-center gap-2 overflow-auto no-scrollbar py-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}>
-                {foodItems.map((f, i) => (
+                {foodCategory.map((f, i) =>
                     <FoodCategory
                         key={i}
                         name={f.name}
                         src={f.src}
                     />
-                ))}
+                )}
             </section>
 
             <section className={`w-full flex items-center gap-4 overflow-auto no-scrollbar px-2 py-2 ${theme?.darkTheme ? "bg-black" : "bg-white"}`}>
-                <FoodItem
-                    src={burger}
-                    name="Cheese Burger"
-                    price={100}
-                />
-                <FoodItem
-                    src={pizza}
-                    name="Cheese Pizza"
-                    price={200}
-                />
-                <FoodItem
-                    src={paneer}
-                    name="Matar Paneer"
-                    price={200}
-                />
-                <FoodItem
-                    src={chicken}
-                    name="Chicken Curry"
-                    price={300}
-                />
-                <FoodItem
-                    src={idli}
-                    name="Idli"
-                    price={20}
-                />
-                <FoodItem
-                    src={dosa}
-                    name="Dosa"
-                    price={20}
-                />
-                <FoodItem
-                    src={biryani}
-                    name="Biryani"
-                    price={60}
-                />
-                <FoodItem
-                    src={curry}
-                    name="Egg Curry"
-                    price={50}
-                />
-                <FoodItem
-                    src={iceCream}
-                    name="Ice-Cream"
-                    price={40}
-                />
+                {foodItems.map((d, i) => {
+                    return <FoodItem
+                        key={i}
+                        src={d.foodImage}
+                        name={d.foodName}
+                        price={d.foodPrice}
+                    />
+                })}
             </section>
             <BottomBar />
         </div>
