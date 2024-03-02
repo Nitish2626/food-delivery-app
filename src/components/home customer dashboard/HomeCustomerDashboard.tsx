@@ -49,7 +49,6 @@ const HomeCustomerDashboard = () => {
             alert("Something went wrong !");
         }
         else {
-            console.log(items);
             setFoodItems(items);
         }
     };

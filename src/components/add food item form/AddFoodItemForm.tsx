@@ -21,20 +21,20 @@ const AddFoodItemForm = () => {
     const foodPriceRef = useRef<HTMLInputElement | null>(null);
     const foodDiscountPriceRef = useRef<HTMLInputElement | null>(null);
 
-    const addFoodItem = async () => {
+    const addFoodItem = async (e: React.FormEvent<HTMLFormElement>) => {
         const foodPrice = Number(foodPriceRef.current?.value);
         const discountPrice = Number(foodDiscountPriceRef.current?.value);
 
+        e.preventDefault();
         const add = await addFood(foodNameRef.current?.value as string, foodImageRef.current?.value as string, foodPrice, discountPrice);
-
-        console.log(await add);
-        alert("Food item added successfully");
-
-        if (foodNameRef.current && foodImageRef.current && foodPriceRef.current && foodDiscountPriceRef.current) {
-            foodNameRef.current.value = "";
-            foodImageRef.current.value = "";
-            foodPriceRef.current.value = "";
-            foodDiscountPriceRef.current.value = "";
+        if (add) {
+            if (foodNameRef.current && foodImageRef.current && foodPriceRef.current && foodDiscountPriceRef.current) {
+                foodNameRef.current.value = "";
+                foodImageRef.current.value = "";
+                foodPriceRef.current.value = "";
+                foodDiscountPriceRef.current.value = "";
+            }
+            alert("Food item added successfully");
         }
     };
 

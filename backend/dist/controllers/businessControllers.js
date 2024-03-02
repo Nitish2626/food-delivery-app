@@ -105,6 +105,8 @@ export const addFood = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         res.status(501).send("Internal Server Error");
     }
 });
+export const updateFood = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+});
 export const getFood = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const findFood = yield productsModel.find();

@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import products from "../../images/products.png";
 import { ThemeContext } from "../../context/ThemeContext";
 import AddProductButton from "../add product button/AddProductButton";
-import AddFoodItemForm from "../add food item form/AddFoodItemForm";
 
 const MyProductsContainer = () => {
 

@@ -125,6 +125,14 @@ export const addFood=async(
     }
 };
 
+export const updateFood=async(
+    req:Request,
+    res:Response,
+    next:NextFunction
+)=>{
+    
+};
+
 export const getFood=async(
     req:Request,
     res:Response,

@@ -7,4 +7,5 @@ businessRouter.post("/signup", businessSignup);
 businessRouter.post("/login", businessLogin);
 businessRouter.get("/status", verifyToken, verifyBusiness);
 businessRouter.post("/add", addFood);
+businessRouter.put("/update");
 businessRouter.get("/get", getFood);

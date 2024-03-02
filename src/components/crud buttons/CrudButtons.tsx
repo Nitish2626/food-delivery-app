@@ -1,5 +1,4 @@
 import { ReactNode, useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
 
 type Props = {
     bg: string;
@@ -8,8 +7,6 @@ type Props = {
 };
 
 const CrudButtons = ({ bg, hover, children }: Props) => {
-
-    const theme = useContext(ThemeContext);
 
     return (
         <button
