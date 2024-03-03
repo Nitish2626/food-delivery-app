@@ -6,7 +6,8 @@ import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import { signupUser } from "../../helpers/customerApiCommunicator";
 import FormContainer from "../form container/FormContainer";
-import SignupButtons from "../signup buttons/SignupButtons";
+import { FaUserPlus } from "react-icons/fa6";
+import ButtonLoginAndSignup from "../login and signup buttons/ButtonLoginAndSignup";
 
 const CustomerSignup = () => {
 
@@ -81,7 +82,13 @@ const CustomerSignup = () => {
                 span={passwordSpan}
             />
 
-            <SignupButtons />
+            <ButtonLoginAndSignup
+                text="Signup"
+            >
+                <FaUserPlus
+                    className="w-5 h-5"
+                />
+            </ButtonLoginAndSignup>
 
             <span className="text-gray-400">
                 OR

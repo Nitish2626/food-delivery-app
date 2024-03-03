@@ -5,7 +5,8 @@ import mail from "../../images/email.png";
 import pw from "../../images/password.png";
 import InputSection from "../input section/InputSection";
 import FormContainer from "../form container/FormContainer";
-import LoginButtons from "../login buttons/LoginButtons";
+import { MdLogin } from "react-icons/md";
+import ButtonLoginAndSignup from "../login and signup buttons/ButtonLoginAndSignup";
 
 const BusinessLogin = () => {
 
@@ -56,7 +57,13 @@ const BusinessLogin = () => {
                 span={passwordSpan}
             />
 
-            <LoginButtons />
+            <ButtonLoginAndSignup
+                text="Login"
+            >
+                <MdLogin
+                    className="w-6 h-6"
+                />
+            </ButtonLoginAndSignup>
 
             <span className="text-gray-400">
                 OR

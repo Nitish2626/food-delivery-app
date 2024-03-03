@@ -45,11 +45,11 @@ const HomeCustomerDashboard = () => {
 
     const getFoodItems = async () => {
         const items = await getFood();
-        if (!items) {
-            alert("Something went wrong !");
+        if(items === false){
+            alert("Something went wrong");
         }
-        else {
-            setFoodItems(items);
+        else{
+            setFoodItems(items); 
         }
     };
 

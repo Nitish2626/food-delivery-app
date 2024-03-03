@@ -1,22 +1,24 @@
-import { useContext } from "react";
-import { MdLogin } from "react-icons/md";
+import { ReactNode, useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 
-const LoginButtons = () => {
+type Props = {
+    text: string;
+    children: ReactNode;
+};
 
-    const theme=useContext(ThemeContext);
+const ButtonLoginAndSignup = ({ text, children }: Props) => {
+
+    const theme = useContext(ThemeContext);
 
     return (
         <button
             type="submit"
             className={`w-28 h-9 flex items-center justify-evenly text-white rounded-lg text-lg my-3  ${theme?.darkTheme ? "bg-gray-800 hover:bg-gray-700" : "bg-blue-600  shadow-md shadow-gray-300 hover:bg-white hover:text-blue-600"}`}
         >
-            Login
-            <MdLogin
-                className="w-6 h-6"
-            />
+            {text}
+            {children}
         </button>
     );
 };
 
-export default LoginButtons;
+export default ButtonLoginAndSignup;

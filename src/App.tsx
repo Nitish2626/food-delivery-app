@@ -8,8 +8,12 @@ import OrdersCustomerDashboard from "./components/orders customer dashboard/Orde
 import AccountCustomerDashboard from "./components/account customer dashboard/AccountCustomerDashboard";
 import HomeBusinessDashboard from "./components/home business dashboard/HomeBusinessDashboard";
 import AddFoodItemForm from "./components/add food item form/AddFoodItemForm";
+import { useContext } from "react";
+import { ThemeContext } from "./context/ThemeContext";
 
 const App = () => {
+
+  const theme=useContext(ThemeContext);
 
   return (
     <div>

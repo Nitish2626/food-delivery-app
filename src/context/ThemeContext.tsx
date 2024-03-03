@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { authStatus, loginUser } from "../helpers/customerApiCommunicator";
+import { authStatus } from "../helpers/customerApiCommunicator";
 
 type User = {
     name: string;
@@ -11,6 +11,8 @@ type Theme = {
     isLoggedIn: boolean;
     darkTheme: boolean;
     changeTheme: () => void;
+    setUser:React.Dispatch<React.SetStateAction<User>>;
+    setIsLoggedIn:React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const ThemeContext = createContext<Theme | null>(null);
@@ -27,9 +29,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
                 setUser({ name: data?.name, email: data?.email});
                 setIsLoggedIn(true); 
             }
+            else{
+                setUser({name:"",email:""});
+                setIsLoggedIn(false);
+                alert("User is not Logged in");
+            }
         };
         checkStatus();
-    }, [user]);
+    }, [isLoggedIn]);
 
     const [darkTheme, setdarkTheme] = useState<boolean>(false);
 
@@ -38,7 +45,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <ThemeContext.Provider value={{ user, isLoggedIn, darkTheme, changeTheme }}>
+        <ThemeContext.Provider value={{ user, isLoggedIn, darkTheme, changeTheme,setUser,setIsLoggedIn }}>
             {children}
         </ThemeContext.Provider>
     );

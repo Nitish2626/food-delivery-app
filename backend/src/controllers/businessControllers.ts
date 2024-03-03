@@ -135,8 +135,7 @@ export const updateFood=async(
 
 export const getFood=async(
     req:Request,
-    res:Response,
-    next:NextFunction
+    res:Response
 )=>{
     try {
         const findFood=await productsModel.find();

@@ -30,10 +30,23 @@ export const loginUser = async (email: string, password: string) => {
     }
 };
 
+export const logoutUser = async () => {
+    try {
+        const res = await axios.get("http://localhost:2000/user/logout",{withCredentials:true});
+        console.log("logout ",await res.data, res.status);
+        return true;
+    } catch (error) {
+        console.log("Logout API Error",error);
+        return false;
+    }
+
+};
+
 export const authStatus = async () => {
     try {
-        const res = await axios.get("http://localhost:2000/user/status", { withCredentials: true });
+        const res = await axios.get("http://localhost:2000/user/status",{withCredentials:true});
         const data = await res.data;
+        console.log("auth ",res.status,data);
         return data;
     }
     catch (error) {

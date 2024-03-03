@@ -107,7 +107,7 @@ export const addFood = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
 });
 export const updateFood = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
 });
-export const getFood = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+export const getFood = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const findFood = yield productsModel.find();
         res.status(200).send(findFood);

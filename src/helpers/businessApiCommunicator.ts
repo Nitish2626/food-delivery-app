@@ -43,11 +43,13 @@ export const addFood = async (foodName: string, foodImage: string, foodPrice:num
 
 export const getFood=async()=>{
     try {
-        const res=await axios.get("http://localhost:2000/business/get");
+        const res=await axios.get("http://localhost:2000/business/get",{withCredentials:true});
         const data=await res.data;
+        console.log("all food",res.status,data);
         return data;
     } 
     catch (error) {
         console.log("Find Food API Error",error);
+        return false;
     }
 };

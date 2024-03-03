@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { userModel } from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import { createToken } from "../utils/tokenManager.js";
-export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+export const userSignup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, email, password } = req.body;
         const userExists = yield userModel.findOne({ email });
@@ -22,12 +22,12 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             const hashedPassword = yield bcrypt.hash(password, 10);
             const newUser = yield userModel.create({ username, email, password: hashedPassword });
             yield newUser.save();
-            res.clearCookie("Token", {
-                path: "/",
-                domain: "localhost",
-                httpOnly: true,
-                signed: true
-            });
+            // res.clearCookie("Token", {
+            //     path: "/",
+            //     domain: "localhost",
+            //     httpOnly: true,
+            //     signed: true
+            // });
             const token = createToken(newUser._id.toString(), newUser.email, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
@@ -46,7 +46,7 @@ export const userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         res.status(501).send("Internal Server Error");
     }
 });
-export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+export const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
         const findUser = yield userModel.findOne({ email });
@@ -59,12 +59,12 @@ export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, f
                 res.status(403).send("Incorrect Password");
             }
             else {
-                res.clearCookie("Token", {
-                    path: "/",
-                    domain: "localhost",
-                    httpOnly: true,
-                    signed: true
-                });
+                // res.clearCookie("Token", {
+                //     path: "/",
+                //     domain: "localhost",
+                //     httpOnly: true,
+                //     signed: true
+                // });
                 const token = createToken(findUser._id.toString(), findUser.email, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
@@ -82,6 +82,15 @@ export const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     catch (error) {
         console.log("User Login ERROR", error);
         res.status(501).send("Internal Server Error");
+    }
+});
+export const userLogout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.clearCookie("Token").status(200).send("Logout Successfull");
+    }
+    catch (error) {
+        console.log("Logout ERROR", error);
+        res.status(500).send("Internal Server ERROR");
     }
 });
 export const verifyUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
