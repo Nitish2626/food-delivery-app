@@ -8,12 +8,9 @@ import OrdersCustomerDashboard from "./components/orders customer dashboard/Orde
 import AccountCustomerDashboard from "./components/account customer dashboard/AccountCustomerDashboard";
 import HomeBusinessDashboard from "./components/home business dashboard/HomeBusinessDashboard";
 import AddFoodItemForm from "./components/add food item form/AddFoodItemForm";
-import { useContext } from "react";
-import { ThemeContext } from "./context/ThemeContext";
+import PrivateRoute from "./components/private routing/PrivateRoute";
 
 const App = () => {
-
-  const theme=useContext(ThemeContext);
 
   return (
     <div>
@@ -22,7 +19,9 @@ const App = () => {
           <Route path="/" element={<Home />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/customer-dashboard/home" element={<HomeCustomerDashboard />}></Route>
+          <Route path="/" element={<PrivateRoute />}>
+            <Route path="/customer-dashboard/home" element={<HomeCustomerDashboard />}></Route>
+          </Route>
           <Route path="/customer-dashboard/orders" element={<OrdersCustomerDashboard />}></Route>
           <Route path="/customer-dashboard/cart" element={<CartCustomerDashboard />}></Route>
           <Route path="/customer-dashboard/account" element={<AccountCustomerDashboard />}></Route>

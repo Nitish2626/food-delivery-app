@@ -19,12 +19,12 @@ export const userSignup = async (
             const newUser = await userModel.create({ username, email, password: hashedPassword });
             await newUser.save();
 
-            // res.clearCookie("Token", {
-            //     path: "/",
-            //     domain: "localhost",
-            //     httpOnly: true,
-            //     signed: true
-            // });
+            res.clearCookie("Token", {
+                path: "/",
+                domain: "localhost",
+                httpOnly: true,
+                signed: true
+            });
 
             const token = createToken(newUser._id.toString(), newUser.email as string, "10d");
             const expires = new Date();
@@ -65,12 +65,12 @@ export const userLogin = async (
                 res.status(403).send("Incorrect Password");
             }
             else {
-                // res.clearCookie("Token", {
-                //     path: "/",
-                //     domain: "localhost",
-                //     httpOnly: true,
-                //     signed: true
-                // });
+                res.clearCookie("Token", {
+                    path: "/",
+                    domain: "localhost",
+                    httpOnly: true,
+                    signed: true
+                });
 
                 const token = createToken(findUser._id.toString(), findUser.email as string, "10d");
                 const expires = new Date();
@@ -100,9 +100,9 @@ export const userLogout = async (
 ) => {
     try {
         res.clearCookie("Token").status(200).send("Logout Successfull");
-    } 
+    }
     catch (error) {
-        console.log("Logout ERROR",error);
+        console.log("Logout ERROR", error);
         res.status(500).send("Internal Server ERROR");
     }
 };
@@ -113,7 +113,6 @@ export const verifyUser = async (
     next: NextFunction
 ) => {
     const user = await userModel.findById({ _id: res.locals.jwtData.id });
-
     if (!user) {
         res.status(401).send("User not registered");
     }

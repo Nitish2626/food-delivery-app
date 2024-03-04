@@ -18,7 +18,7 @@ export const createToken = (id, email, expiresIn) => {
 export const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const token = yield req.signedCookies["Token"];
     if (!token || token.trim() === "") {
-        res.status(401).send("Token not Received");
+        // res.status(401).send("Token not Received");
         console.log("Token not received");
         next();
     }
@@ -28,7 +28,7 @@ export const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0,
             res.locals.jwtData = verified;
         }
         else {
-            res.status(401).send("Token expired");
+            console.log("Token expired");
         }
         next();
     }

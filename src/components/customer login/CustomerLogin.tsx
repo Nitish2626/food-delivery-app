@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { loginUser } from "../../helpers/customerApiCommunicator";
 import mail from "../../images/email.png";
 import pw from "../../images/password.png";
@@ -7,10 +7,12 @@ import InputSection from "../input section/InputSection";
 import FormContainer from "../form container/FormContainer";
 import { MdLogin } from "react-icons/md";
 import ButtonLoginAndSignup from "../login and signup buttons/ButtonLoginAndSignup";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const CustomerLogin = () => {
 
     const navigate = useNavigate();
+    const theme=useContext(ThemeContext);
 
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -28,6 +30,8 @@ const CustomerLogin = () => {
             // theme?.login(emailRef.current?.value as string, passwordRef.current?.value as string);
         }
         else {
+            theme?.setUser({name:res?.name,email:res?.email});
+            theme?.setIsLoggedIn(true);
             setEmailSpan("");
             setPasswordSpan("");
             if (emailRef.current && passwordRef.current) {

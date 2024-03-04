@@ -25,6 +25,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const checkStatus = async () => {
             const data = await authStatus();
+            console.log(await data.data);
             if (data) {
                 setUser({ name: data?.name, email: data?.email});
                 setIsLoggedIn(true); 
