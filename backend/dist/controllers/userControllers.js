@@ -22,12 +22,12 @@ export const userSignup = (req, res) => __awaiter(void 0, void 0, void 0, functi
             const hashedPassword = yield bcrypt.hash(password, 10);
             const newUser = yield userModel.create({ username, email, password: hashedPassword });
             yield newUser.save();
-            res.clearCookie("Token", {
-                path: "/",
-                domain: "localhost",
-                httpOnly: true,
-                signed: true
-            });
+            // res.clearCookie("Token", {
+            //     path: "/",
+            //     domain: "localhost",
+            //     httpOnly: true,
+            //     signed: true
+            // });
             const token = createToken(newUser._id.toString(), newUser.email, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
@@ -59,12 +59,12 @@ export const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 res.status(403).send("Incorrect Password");
             }
             else {
-                res.clearCookie("Token", {
-                    path: "/",
-                    domain: "localhost",
-                    httpOnly: true,
-                    signed: true
-                });
+                // res.clearCookie("Token", {
+                //     path: "/",
+                //     domain: "localhost",
+                //     httpOnly: true,
+                //     signed: true
+                // });
                 const token = createToken(findUser._id.toString(), findUser.email, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
@@ -94,12 +94,17 @@ export const userLogout = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 export const verifyUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield userModel.findById({ _id: res.locals.jwtData.id });
-    if (!user) {
-        res.status(401).send("User not registered");
+    if (res.locals.jwtData) {
+        const user = yield userModel.findById({ _id: res.locals.jwtData.id });
+        if (!user) {
+            res.status(401).send("User not registered");
+        }
+        else {
+            res.status(200).send({ name: user === null || user === void 0 ? void 0 : user.username, email: user === null || user === void 0 ? void 0 : user.email });
+        }
     }
     else {
-        res.status(200).send({ name: user === null || user === void 0 ? void 0 : user.username, email: user === null || user === void 0 ? void 0 : user.email });
+        console.log("Token in not set");
     }
 });
 export const userOrders = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
