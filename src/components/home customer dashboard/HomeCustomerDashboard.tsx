@@ -17,7 +17,6 @@ import FoodItem from '../food item/FoodItem';
 import BottomBar from '../customer bottom bar/CustomerBottomBar';
 import HomeTopbarContainer from '../home topbar container/HomeTopbarContainer';
 import { getFood } from '../../helpers/businessApiCommunicator';
-import { useNavigate } from 'react-router-dom';
 
 type Objects = {
     foodName: string;
@@ -29,12 +28,7 @@ type Objects = {
 const HomeCustomerDashboard = () => {
 
     const theme = useContext(ThemeContext);
-
-    const navigate = useNavigate();
-
-    if (theme?.user.name === "" || theme?.user.email === "" && theme.isLoggedIn === false) {
-        navigate("/");
-    };
+    console.log("app", theme?.user);
 
     const foodCategory = [
         { src: pizza, name: "Pizza" },

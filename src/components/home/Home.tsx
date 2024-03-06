@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import NavigationBar from '../navigation bar/NavigationBar';
 
 const Home = () => {

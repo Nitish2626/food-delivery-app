@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/home/Home";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
@@ -8,14 +8,12 @@ import OrdersCustomerDashboard from "./components/orders customer dashboard/Orde
 import AccountCustomerDashboard from "./components/account customer dashboard/AccountCustomerDashboard";
 import HomeBusinessDashboard from "./components/home business dashboard/HomeBusinessDashboard";
 import AddFoodItemForm from "./components/add food item form/AddFoodItemForm";
-import PrivateRoute from "./components/private routing/PrivateRoute";
 import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
 
 const App = () => {
 
   const theme = useContext(ThemeContext);
-  console.log("app", theme?.user);
 
   return (
     <div>
@@ -23,7 +21,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<Home />}
+            element={theme?.isLoggedIn ? <Navigate to="/customer-dashboard/home" /> : <Home />}
           />
           <Route
             path="/signup"
@@ -33,12 +31,10 @@ const App = () => {
             path="/login"
             element={<Login />}
           />
-          {/* <Route path="/" element={<PrivateRoute />}> */}
           <Route
             path="/customer-dashboard/home"
-            element={<HomeCustomerDashboard />}
+            element={theme?.isLoggedIn ? <HomeCustomerDashboard /> : <Navigate to="/login" />}
           />
-          {/* </Route> */}
           <Route
             path="/customer-dashboard/orders"
             element={<OrdersCustomerDashboard />}

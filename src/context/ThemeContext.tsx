@@ -25,15 +25,15 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const checkStatus = async () => {
             const data = await authStatus();
-            console.log(await data.data);
             if (data) {
                 setUser({ name: data?.name, email: data?.email});
-                setIsLoggedIn(true); 
+                setIsLoggedIn(true);
+                console.log("user found");
             }
             else{
                 setUser({name:"",email:""});
                 setIsLoggedIn(false);
-                alert("User is not Logged in");
+                console.log("User not found");
             }
         };
         checkStatus();
