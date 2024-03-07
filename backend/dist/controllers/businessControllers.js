@@ -11,7 +11,7 @@ import bcrypt from "bcrypt";
 import { createToken } from "../utils/tokenManager.js";
 import { businessModel } from "../models/businessSchema.js";
 import { productsModel } from "../models/productsSchema.js";
-export const businessSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+export const businessSignup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { businessName, email, password } = req.body;
         const userExists = yield businessModel.findOne({ email });
@@ -22,12 +22,6 @@ export const businessSignup = (req, res, next) => __awaiter(void 0, void 0, void
             const hashedPassword = yield bcrypt.hash(password, 10);
             const newBusiness = yield businessModel.create({ businessName, email, password: hashedPassword });
             yield newBusiness.save();
-            res.clearCookie("Token", {
-                path: "/",
-                domain: "localhost",
-                httpOnly: true,
-                signed: true
-            });
             const token = createToken(newBusiness._id.toString(), newBusiness.email, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
@@ -46,12 +40,12 @@ export const businessSignup = (req, res, next) => __awaiter(void 0, void 0, void
         res.status(501).send("Internal Server Error");
     }
 });
-export const businessLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+export const businessLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
         const findBusiness = yield businessModel.findOne({ email });
         if (!findBusiness) {
-            res.status(401).send("User Not Exists");
+            res.status(401).send("Business Not Exists");
         }
         else {
             const isPasswordCorrect = yield bcrypt.compare(password, findBusiness.password);
@@ -59,12 +53,6 @@ export const businessLogin = (req, res, next) => __awaiter(void 0, void 0, void 
                 res.status(403).send("Incorrect Password");
             }
             else {
-                res.clearCookie("Token", {
-                    path: "/",
-                    domain: "localhost",
-                    httpOnly: true,
-                    signed: true
-                });
                 const token = createToken(findBusiness._id.toString(), findBusiness.email, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
@@ -84,13 +72,28 @@ export const businessLogin = (req, res, next) => __awaiter(void 0, void 0, void 
         res.status(501).send("Internal Server Error");
     }
 });
-export const verifyBusiness = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const business = yield businessModel.findById({ _id: res.locals.jwtData.id });
-    if (!business) {
-        res.status(401).send("Business not registered");
+export const businessLogout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.clearCookie("Token").status(200).send("Logout Successfull");
+    }
+    catch (error) {
+        console.log("Logout ERROR", error);
+        res.status(500).send("Internal Server ERROR");
+    }
+});
+export const verifyBusiness = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (res.locals.jwtData) {
+        const business = yield businessModel.findById({ _id: res.locals.jwtData.id });
+        if (!business) {
+            res.status(401).send("Business not registered");
+        }
+        else {
+            res.status(200).send({ name: business === null || business === void 0 ? void 0 : business.businessName, email: business === null || business === void 0 ? void 0 : business.email });
+        }
     }
     else {
-        res.status(200).send({ name: business === null || business === void 0 ? void 0 : business.businessName, email: business === null || business === void 0 ? void 0 : business.email });
+        console.log("Token in not set");
+        res.status(401).send("Token not found");
     }
 });
 export const addFood = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {

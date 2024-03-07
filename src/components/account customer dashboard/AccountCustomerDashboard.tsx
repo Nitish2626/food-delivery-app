@@ -18,6 +18,9 @@ const AccountCustomerDashboard = () => {
       theme?.setIsLoggedIn(false);
       navigate("/");
     }
+    else{
+      alert("Unable to Logout");
+    }
   };
 
   return (

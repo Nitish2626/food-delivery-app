@@ -1,4 +1,5 @@
 import axios from "axios";
+import { authStatusUserAndBusiness } from "./authStatusUserAndBusiness";
 
 type userParams = {
     username: string;
@@ -39,20 +40,11 @@ export const logoutUser = async () => {
         console.log("Logout API Error",error);
         return false;
     }
-
 };
 
 export const authStatus = async () => {
-    try {
-        const res = await axios.get("http://localhost:2000/user/status",{withCredentials:true});
-        const data = await res.data;
-        console.log("auth ",res.status,data);
-        return data;
-    }
-    catch (error) {
-        console.log("Auth Status API ERROR", error);
-        return "Unable to authenticate";
-    }
+    const res=await authStatusUserAndBusiness("http://localhost:2000/user/status");
+    return res;
 };
 
 export const orders = async (name: string, price: number, quantity: number) => {

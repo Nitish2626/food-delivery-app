@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { authStatus } from "../helpers/customerApiCommunicator";
+import axios from "axios";
 
 type User = {
     name: string;
@@ -11,32 +11,41 @@ type Theme = {
     isLoggedIn: boolean;
     darkTheme: boolean;
     changeTheme: () => void;
-    setUser:React.Dispatch<React.SetStateAction<User>>;
-    setIsLoggedIn:React.Dispatch<React.SetStateAction<boolean>>;
+    setUser: React.Dispatch<React.SetStateAction<User>>;
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const ThemeContext = createContext<Theme | null>(null);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
-    const [user, setUser] = useState<User>({name:"",email:""});
+    const [user, setUser] = useState<User>({ name: "", email: "" });
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
-        const checkStatus = async () => {
-            const data = await authStatus();
-            if (data) {
-                setUser({ name: data?.name, email: data?.email});
-                setIsLoggedIn(true);
-                console.log("user found");
+        const authStatusUserAndBusiness = async (url: string) => {
+            try {
+                const res = await axios.get(url, { withCredentials: true });
+                const data = await res.data;
+                console.log("auth ", res.status, data);
+
+                if (data === "Unable to authenticate") {
+                    setUser({ name: "", email: "" });
+                    setIsLoggedIn(false);
+                    console.log("User not found");
+                }
+                else {
+                    setUser({ name: data?.name, email: data?.email });
+                    setIsLoggedIn(true);
+                    console.log("user found");
+                }
             }
-            else{
-                setUser({name:"",email:""});
-                setIsLoggedIn(false);
-                console.log("User not found");
+            catch (error) {
+                console.log("Auth Status API ERROR", error);
+                return "Unable to authenticate";
             }
         };
-        checkStatus();
+        authStatusUserAndBusiness();
     }, [isLoggedIn]);
 
     const [darkTheme, setdarkTheme] = useState<boolean>(false);
@@ -46,7 +55,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <ThemeContext.Provider value={{ user, isLoggedIn, darkTheme, changeTheme,setUser,setIsLoggedIn }}>
+        <ThemeContext.Provider value={{ user, isLoggedIn, darkTheme, changeTheme, setUser, setIsLoggedIn }}>
             {children}
         </ThemeContext.Provider>
     );

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { authStatusUserAndBusiness } from "./authStatusUserAndBusiness";
 
 type businessParams = {
     businessName: string;
@@ -28,6 +29,23 @@ export const loginBusiness = async (email: string, password: string) => {
         console.log("Business Login API ERROR", error);
         return "Invalid Credentials";
     }
+};
+
+export const logoutBusiness=async()=>{
+    try{
+        const res=await axios.get("http://localhost:2000/business/logout",{withCredentials:true});
+        console.log("logout ",await res.data, res.status);
+        return true;
+    }
+    catch(error){
+        console.log("Logout API Error",error);
+        return false;
+    }
+};
+
+export const authStatus=async()=>{
+    const res=await authStatusUserAndBusiness("http://localhost:2000/business/status");
+    return res;
 };
 
 export const addFood = async (foodName: string, foodImage: string, foodPrice:number, foodDiscount: number) => {

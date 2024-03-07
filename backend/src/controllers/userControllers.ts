@@ -19,13 +19,6 @@ export const userSignup = async (
             const newUser = await userModel.create({ username, email, password: hashedPassword });
             await newUser.save();
 
-            // res.clearCookie("Token", {
-            //     path: "/",
-            //     domain: "localhost",
-            //     httpOnly: true,
-            //     signed: true
-            // });
-
             const token = createToken(newUser._id.toString(), newUser.email as string, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
@@ -65,13 +58,6 @@ export const userLogin = async (
                 res.status(403).send("Incorrect Password");
             }
             else {
-                // res.clearCookie("Token", {
-                //     path: "/",
-                //     domain: "localhost",
-                //     httpOnly: true,
-                //     signed: true
-                // });
-
                 const token = createToken(findUser._id.toString(), findUser.email as string, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
@@ -123,6 +109,7 @@ export const verifyUser = async (
     }
     else{
         console.log("Token in not set");
+        res.status(401).send("Token not found");
     }
 };
 

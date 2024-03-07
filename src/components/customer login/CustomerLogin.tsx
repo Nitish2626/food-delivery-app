@@ -27,7 +27,6 @@ const CustomerLogin = () => {
         if (res === "Invalid Credentials") {
             setEmailSpan("Invalid Credentials");
             setPasswordSpan("Invalid Credentials");
-            // theme?.login(emailRef.current?.value as string, passwordRef.current?.value as string);
         }
         else {
             theme?.setUser({name:res?.name,email:res?.email});

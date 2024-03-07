@@ -10,6 +10,7 @@ import HomeBusinessDashboard from "./components/home business dashboard/HomeBusi
 import AddFoodItemForm from "./components/add food item form/AddFoodItemForm";
 import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
+import AccountBusinessDashboard from "./components/accountBusinessDashboard/AccountBusinessDashboard";
 
 const App = () => {
 
@@ -37,15 +38,15 @@ const App = () => {
           />
           <Route
             path="/customer-dashboard/orders"
-            element={<OrdersCustomerDashboard />}
+            element={theme?.isLoggedIn ? <OrdersCustomerDashboard /> : <Navigate to="/login" />}
           />
           <Route
             path="/customer-dashboard/cart"
-            element={<CartCustomerDashboard />}
+            element={theme?.isLoggedIn ? <CartCustomerDashboard /> : <Navigate to="/login" />}
           />
           <Route
             path="/customer-dashboard/account"
-            element={<AccountCustomerDashboard />}
+            element={theme?.isLoggedIn ? <AccountCustomerDashboard /> : <Navigate to="/login" />}
           />
           <Route
             path="/business-dashboard/home"
@@ -54,6 +55,10 @@ const App = () => {
           <Route
             path="/business-dashboard/home/add-product"
             element={<AddFoodItemForm />}
+          />
+          <Route
+            path="/business-dashboard/account"
+            element={<AccountBusinessDashboard />}
           />
         </Routes>
       </Router>
