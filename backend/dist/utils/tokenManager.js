@@ -24,6 +24,7 @@ export const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0,
     }
     else {
         const verified = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(verified);
         if (verified) {
             res.locals.jwtData = verified;
         }

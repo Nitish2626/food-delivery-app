@@ -1,5 +1,4 @@
 import axios from "axios";
-import { authStatusUserAndBusiness } from "./authStatusUserAndBusiness";
 
 type businessParams = {
     businessName: string;
@@ -31,43 +30,51 @@ export const loginBusiness = async (email: string, password: string) => {
     }
 };
 
-export const logoutBusiness=async()=>{
-    try{
-        const res=await axios.get("http://localhost:2000/business/logout",{withCredentials:true});
-        console.log("logout ",await res.data, res.status);
+export const logoutBusiness = async () => {
+    try {
+        const res = await axios.get("http://localhost:2000/business/logout", { withCredentials: true });
+        console.log("logout ", await res.data, res.status);
         return true;
     }
-    catch(error){
-        console.log("Logout API Error",error);
+    catch (error) {
+        console.log("Logout API Error", error);
         return false;
     }
 };
 
-export const authStatus=async()=>{
-    const res=await authStatusUserAndBusiness("http://localhost:2000/business/status");
-    return res;
-};
-
-export const addFood = async (foodName: string, foodImage: string, foodPrice:number, foodDiscount: number) => {
+export const businessAuthStatus = async () => {
     try {
-        const res=await axios.post("http://localhost:2000/business/add",{foodName,foodImage,foodPrice,foodDiscount},{withCredentials:true});
-        const data=await res.data; 
+        const res = await axios.get("http://localhost:2000/business/status", { withCredentials: true });
+        const data = await res.data;
+        console.log("auth ", res.status, data);
         return data;
-    } 
+    }
     catch (error) {
-        console.log("Add Food API Error",error);
+        console.log("Auth Status API ERROR", error);
+        return "Unable to authenticate";
     }
 };
 
-export const getFood=async()=>{
+export const addFood = async (foodName: string, foodImage: string, foodPrice: number, foodDiscount: number) => {
     try {
-        const res=await axios.get("http://localhost:2000/business/get",{withCredentials:true});
-        const data=await res.data;
-        console.log("all food",res.status,data);
+        const res = await axios.post("http://localhost:2000/business/add", {foodName, foodImage, foodPrice, foodDiscount }, { withCredentials: true });
+        const data = await res.data;
         return data;
-    } 
+    }
     catch (error) {
-        console.log("Find Food API Error",error);
+        console.log("Add Food API Error", error);
+    }
+};
+
+export const getFood = async () => {
+    try {
+        const res = await axios.get("http://localhost:2000/business/get", { withCredentials: true });
+        const data = await res.data;
+        console.log("all food", res.status, data);
+        return data;
+    }
+    catch (error) {
+        console.log("Find Food API Error", error);
         return false;
     }
 };

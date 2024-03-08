@@ -23,7 +23,7 @@ export const verifyToken = async (
     }
     else {
         const verified=jwt.verify(token,process.env.JWT_SECRET as string);
-
+        console.log(verified);
         if(verified){
             res.locals.jwtData=verified;
         }

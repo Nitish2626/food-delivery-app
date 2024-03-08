@@ -13,8 +13,8 @@ const AccountBusinessDashboard = () => {
     const logout = async () => {
         const data = await logoutBusiness();
         if (data === true) {
-            theme?.setUser({ name: "", email: "" });
-            theme?.setIsLoggedIn(false);
+            theme?.setBusiness({ name: "", email: "" });
+            theme?.setIsBusinessLoggedIn(false);
             navigate("/");
         }
         else{
@@ -25,7 +25,7 @@ const AccountBusinessDashboard = () => {
     return (
         <div>
             AccountBusinessDashboard
-            <h1>{theme?.user.name},{theme?.user.email}</h1>
+            <h1>{theme?.business.name},{theme?.business.email}</h1>
 
             <button
                 className={`flex items-center gap-2 text-xl py-1 px-1 rounded-lg mt-2  ${theme?.darkTheme ? "shadow-none bg-gray-800 text-white hover:bg-gray-700" : "shadow-md shadow-gray-300 hover:bg-gray-200 hover:shadow-none"}`}

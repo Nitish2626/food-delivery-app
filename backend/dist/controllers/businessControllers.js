@@ -99,7 +99,8 @@ export const verifyBusiness = (req, res) => __awaiter(void 0, void 0, void 0, fu
 export const addFood = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { foodName, foodImage, foodPrice, foodDiscount } = req.body;
-        const addFood = yield productsModel.create({ foodName, foodImage, foodPrice, foodDiscount });
+        console.log("jwtdata", res.locals.jwtData.id);
+        const addFood = yield productsModel.create({ owner: res.locals.jwtData.id, foodName, foodImage, foodPrice, foodDiscount });
         yield addFood.save();
         res.status(200).send(addFood);
     }

@@ -30,15 +30,15 @@ const BusinessLogin = () => {
             setPasswordSpan("Invalid Credentials");
         }
         else {
-            theme?.setUser({name:res?.name,email:res?.email});
-            theme?.setIsLoggedIn(true);
+            theme?.setBusiness({name:res?.name,email:res?.email});
+            theme?.setIsBusinessLoggedIn(true);
             setEmailSpan("");
             setPasswordSpan("");
             if (emailRef.current && passwordRef.current) {
                 emailRef.current.value = "";
                 passwordRef.current.value = "";
             }
-            alert("User Loggedin Successfully");
+            alert("Business Loggedin Successfully");
             navigate("/business-dashboard/home");
         }
     }

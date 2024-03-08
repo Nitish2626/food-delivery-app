@@ -22,7 +22,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={theme?.isLoggedIn ? <Navigate to="/customer-dashboard/home" /> : <Home />}
+            element={theme?.isLoggedIn ? <Navigate to="/customer-dashboard/home" /> : <Home /> || theme?.isBusinessLoggedIn ? <Navigate to="/business-dashboard/home" /> : <Home />}
           />
           <Route
             path="/signup"
@@ -50,15 +50,15 @@ const App = () => {
           />
           <Route
             path="/business-dashboard/home"
-            element={<HomeBusinessDashboard />}
+            element={theme?.isBusinessLoggedIn ? <HomeBusinessDashboard /> : <Navigate to="/login" />}
           />
           <Route
             path="/business-dashboard/home/add-product"
-            element={<AddFoodItemForm />}
+            element={theme?.isBusinessLoggedIn ? <AddFoodItemForm /> : <Navigate to="/login" />}
           />
           <Route
             path="/business-dashboard/account"
-            element={<AccountBusinessDashboard />}
+            element={theme?.isBusinessLoggedIn ? <AccountBusinessDashboard /> : <Navigate to="/login" />}
           />
         </Routes>
       </Router>

@@ -78,10 +78,10 @@ export const businessLogin = async (
     }
 };
 
-export const businessLogout=async(
-    req:Request,
-    res:Response
-)=>{
+export const businessLogout = async (
+    req: Request,
+    res: Response
+) => {
     try {
         res.clearCookie("Token").status(200).send("Logout Successfull");
     }
@@ -118,7 +118,8 @@ export const addFood = async (
 ) => {
     try {
         const { foodName, foodImage, foodPrice, foodDiscount } = req.body;
-        const addFood = await productsModel.create({ foodName, foodImage, foodPrice, foodDiscount });
+        console.log("jwtdata", res.locals.jwtData.id);
+        const addFood = await productsModel.create({ owner: res.locals.jwtData.id as String, foodName, foodImage, foodPrice, foodDiscount });
         await addFood.save();
         res.status(200).send(addFood);
     }
