@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import jwt from "jsonwebtoken";
-export const createToken = (id, email, expiresIn) => {
-    const payload = { id, email };
+export const createToken = (id, name, expiresIn) => {
+    const payload = { id, name };
     const token = jwt.sign(payload, `${process.env.JWT_SECRET}`, {
         expiresIn
     });
@@ -24,7 +24,7 @@ export const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0,
     }
     else {
         const verified = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(verified);
+        console.log("ver", verified);
         if (verified) {
             res.locals.jwtData = verified;
         }

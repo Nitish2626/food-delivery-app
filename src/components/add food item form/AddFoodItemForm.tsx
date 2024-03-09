@@ -27,7 +27,10 @@ const AddFoodItemForm = () => {
 
         e.preventDefault();
         const add = await addFood(foodNameRef.current?.value as string, foodImageRef.current?.value as string, foodPrice, discountPrice);
-        if (add) {
+        if (add==="error") {
+            alert("Unable to add food item");
+        }
+        else{
             if (foodNameRef.current && foodImageRef.current && foodPriceRef.current && foodDiscountPriceRef.current) {
                 foodNameRef.current.value = "";
                 foodImageRef.current.value = "";

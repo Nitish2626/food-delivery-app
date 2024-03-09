@@ -9,7 +9,7 @@ businessRouter.post("/signup",businessSignup);
 businessRouter.post("/login",businessLogin);
 businessRouter.get("/logout",businessLogout);
 businessRouter.get("/status",verifyToken,verifyBusiness);
-businessRouter.post("/add",addFood);
+businessRouter.post("/add",verifyToken,addFood);
 businessRouter.put("/update",);
 businessRouter.get("/get",getFood);
 

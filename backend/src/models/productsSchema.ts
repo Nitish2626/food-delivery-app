@@ -2,7 +2,11 @@ import mongoose, { Schema } from "mongoose";
 
 const productsSchema = new Schema({
     owner: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"businesse"
+    },
+    ownerName:{
+        type:String
     },
     foodName: {
         type: String

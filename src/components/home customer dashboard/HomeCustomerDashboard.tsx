@@ -58,6 +58,8 @@ const HomeCustomerDashboard = () => {
         getFoodItems();
     }, [foodItems.length]);
 
+    console.log(foodItems);
+
     return (
         <div>
             <HomeTopbarContainer>

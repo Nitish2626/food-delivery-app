@@ -63,6 +63,7 @@ export const addFood = async (foodName: string, foodImage: string, foodPrice: nu
     }
     catch (error) {
         console.log("Add Food API Error", error);
+        return "error";
     }
 };
 

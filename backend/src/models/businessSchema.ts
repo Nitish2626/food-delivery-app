@@ -15,7 +15,7 @@ const businessSchema = new Schema({
     products: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "product"
+            ref:"product"
         }
     ]
 },

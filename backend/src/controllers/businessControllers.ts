@@ -19,7 +19,7 @@ export const businessSignup = async (
             const newBusiness = await businessModel.create({ businessName, email, password: hashedPassword });
             await newBusiness.save();
 
-            const token = createToken(newBusiness._id.toString(), newBusiness.email as string, "10d");
+            const token = createToken(newBusiness._id.toString(),newBusiness.businessName as string, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
 
@@ -48,7 +48,7 @@ export const businessLogin = async (
         const findBusiness = await businessModel.findOne({ email });
 
         if (!findBusiness) {
-            res.status(401).send("Business Not Exists");
+            res.status(401).send("Not Exists");
         }
         else {
             const isPasswordCorrect = await bcrypt.compare(password, findBusiness.password as string);
@@ -56,7 +56,7 @@ export const businessLogin = async (
                 res.status(403).send("Incorrect Password");
             }
             else {
-                const token = createToken(findBusiness._id.toString(), findBusiness.email as string, "10d");
+                const token = createToken(findBusiness._id.toString(),findBusiness.businessName as string, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
 
@@ -91,7 +91,7 @@ export const businessLogout = async (
     }
 };
 
-export const verifyBusiness = async (
+export const verifyBusiness = async ( 
     req: Request,
     res: Response
 ) => {
@@ -114,14 +114,22 @@ export const verifyBusiness = async (
 export const addFood = async (
     req: Request,
     res: Response,
-    next: NextFunction
 ) => {
     try {
         const { foodName, foodImage, foodPrice, foodDiscount } = req.body;
-        console.log("jwtdata", res.locals.jwtData.id);
-        const addFood = await productsModel.create({ owner: res.locals.jwtData.id as String, foodName, foodImage, foodPrice, foodDiscount });
-        await addFood.save();
-        res.status(200).send(addFood);
+        if (res.locals.jwtData) {
+            console.log("data",res.locals.jwtData);
+            const addFood = await productsModel.create({ owner: res.locals.jwtData.id,ownerName:res.locals.jwtData.name, foodName, foodImage, foodPrice, foodDiscount });
+            await addFood.save();
+
+            await businessModel.findOneAndUpdate({_id:res.locals.jwtData.id},{$push:{products:addFood._id}});
+
+            res.status(200).send(addFood);
+        }
+        else{
+            console.log("User not registered");
+            res.status(401).send("User not found");
+        }
     }
     catch (error) {
         console.log("Adding Food Item ERROR", error);

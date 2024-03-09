@@ -22,7 +22,7 @@ export const businessSignup = (req, res) => __awaiter(void 0, void 0, void 0, fu
             const hashedPassword = yield bcrypt.hash(password, 10);
             const newBusiness = yield businessModel.create({ businessName, email, password: hashedPassword });
             yield newBusiness.save();
-            const token = createToken(newBusiness._id.toString(), newBusiness.email, "10d");
+            const token = createToken(newBusiness._id.toString(), newBusiness.businessName, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
             res.cookie("Token", token, {
@@ -45,7 +45,7 @@ export const businessLogin = (req, res) => __awaiter(void 0, void 0, void 0, fun
         const { email, password } = req.body;
         const findBusiness = yield businessModel.findOne({ email });
         if (!findBusiness) {
-            res.status(401).send("Business Not Exists");
+            res.status(401).send("Not Exists");
         }
         else {
             const isPasswordCorrect = yield bcrypt.compare(password, findBusiness.password);
@@ -53,7 +53,7 @@ export const businessLogin = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 res.status(403).send("Incorrect Password");
             }
             else {
-                const token = createToken(findBusiness._id.toString(), findBusiness.email, "10d");
+                const token = createToken(findBusiness._id.toString(), findBusiness.businessName, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
                 res.cookie("Token", token, {
@@ -96,13 +96,20 @@ export const verifyBusiness = (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.status(401).send("Token not found");
     }
 });
-export const addFood = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+export const addFood = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { foodName, foodImage, foodPrice, foodDiscount } = req.body;
-        console.log("jwtdata", res.locals.jwtData.id);
-        const addFood = yield productsModel.create({ owner: res.locals.jwtData.id, foodName, foodImage, foodPrice, foodDiscount });
-        yield addFood.save();
-        res.status(200).send(addFood);
+        if (res.locals.jwtData) {
+            console.log("data", res.locals.jwtData);
+            const addFood = yield productsModel.create({ owner: res.locals.jwtData.id, ownerName: res.locals.jwtData.name, foodName, foodImage, foodPrice, foodDiscount });
+            yield addFood.save();
+            yield businessModel.findOneAndUpdate({ _id: res.locals.jwtData.id }, { $push: { products: addFood._id } });
+            res.status(200).send(addFood);
+        }
+        else {
+            console.log("User not registered");
+            res.status(401).send("User not found");
+        }
     }
     catch (error) {
         console.log("Adding Food Item ERROR", error);

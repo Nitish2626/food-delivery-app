@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-export const createToken = (id: string, email: string, expiresIn: string) => {
-    const payload = { id, email };
+export const createToken = (id: string, name: string, expiresIn: string) => {
+    const payload = { id, name };
     const token = jwt.sign(payload, `${process.env.JWT_SECRET}`, {
         expiresIn
     });
@@ -22,12 +22,12 @@ export const verifyToken = async (
         next();
     }
     else {
-        const verified=jwt.verify(token,process.env.JWT_SECRET as string);
-        console.log(verified);
-        if(verified){
-            res.locals.jwtData=verified;
+        const verified = jwt.verify(token, process.env.JWT_SECRET as string);
+        console.log("ver", verified);
+        if (verified) {
+            res.locals.jwtData = verified;
         }
-        else{
+        else {
             console.log("Token expired");
         }
         next();
