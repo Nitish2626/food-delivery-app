@@ -8,9 +8,10 @@ type Props = {
     src: string;
     name: string;
     price: number;
+    ownerName:string;
 };
 
-const FoodItem = ({ src, name, price }: Props) => {
+const FoodItem = ({ src, name, price,ownerName }: Props) => {
 
     const theme = useContext(ThemeContext);
 
@@ -45,7 +46,7 @@ const FoodItem = ({ src, name, price }: Props) => {
                 <h1
                     className={`w-full text-xl font-semibold text-center overflow-hidden text-ellipsis px-5 ${theme?.darkTheme ? "text-white" : "text-black"}`}
                 >
-                    {name}
+                    {name}{ownerName}
                 </h1>
             </section>
 

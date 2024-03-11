@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import jwt from "jsonwebtoken";
-export const createToken = (id, name, expiresIn) => {
-    const payload = { id, name };
+export const createToken = (id, name, email, expiresIn) => {
+    const payload = { id, name, email };
     const token = jwt.sign(payload, `${process.env.JWT_SECRET}`, {
         expiresIn
     });

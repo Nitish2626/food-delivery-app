@@ -23,6 +23,7 @@ type Objects = {
     foodImage: string;
     foodPrice: number;
     foodDiscount: Number;
+    ownerName: string;
 };
 
 const HomeCustomerDashboard = () => {
@@ -85,6 +86,7 @@ const HomeCustomerDashboard = () => {
                         src={d.foodImage}
                         name={d.foodName}
                         price={d.foodPrice}
+                        ownerName={d.ownerName}
                     />
                 })}
             </section>

@@ -22,7 +22,7 @@ export const businessSignup = (req, res) => __awaiter(void 0, void 0, void 0, fu
             const hashedPassword = yield bcrypt.hash(password, 10);
             const newBusiness = yield businessModel.create({ businessName, email, password: hashedPassword });
             yield newBusiness.save();
-            const token = createToken(newBusiness._id.toString(), newBusiness.businessName, "10d");
+            const token = createToken(newBusiness._id.toString(), newBusiness.businessName, newBusiness.email, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
             res.cookie("Token", token, {
@@ -53,7 +53,7 @@ export const businessLogin = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 res.status(403).send("Incorrect Password");
             }
             else {
-                const token = createToken(findBusiness._id.toString(), findBusiness.businessName, "10d");
+                const token = createToken(findBusiness._id.toString(), findBusiness.businessName, findBusiness.email, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
                 res.cookie("Token", token, {

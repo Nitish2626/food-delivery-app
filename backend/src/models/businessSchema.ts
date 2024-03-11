@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { productsModel } from "./productsSchema.js";
 
 const businessSchema = new Schema({
     businessName: {
