@@ -19,7 +19,7 @@ export const userSignup = async (
             const newUser = await userModel.create({ username, email, password: hashedPassword });
             await newUser.save();
 
-            const token = createToken(newUser._id.toString(), newUser.email as string, "10d");
+            const token = createToken(newUser._id.toString(),newUser.username as string, newUser.email as string, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
 
@@ -58,7 +58,7 @@ export const userLogin = async (
                 res.status(403).send("Incorrect Password");
             }
             else {
-                const token = createToken(findUser._id.toString(), findUser.email as string, "10d");
+                const token = createToken(findUser._id.toString(),findUser.username as string, findUser.email as string, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
 

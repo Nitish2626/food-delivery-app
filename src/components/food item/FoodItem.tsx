@@ -44,11 +44,13 @@ const FoodItem = ({ src, name, price,ownerName }: Props) => {
                     alt="Food"
                 />
                 <h1
-                    className={`w-full text-xl font-semibold text-center overflow-hidden text-ellipsis px-5 ${theme?.darkTheme ? "text-white" : "text-black"}`}
+                    className={`w-full text-xl font-semibold text-center overflow-hidden text-ellipsis px-5 capitalize ${theme?.darkTheme ? "text-white" : "text-black"}`}
                 >
-                    {name}{ownerName}
+                    {name}
                 </h1>
             </section>
+
+            <h1 className="text-gray-200 capitalize">{ownerName}</h1>
 
             <section className="w-full flex items-center justify-evenly">
                 <h2

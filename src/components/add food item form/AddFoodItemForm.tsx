@@ -4,7 +4,7 @@ import ThemeButton from '../theme button/ThemeButton';
 import BackButton from '../back button/BackButton';
 import InputSection from '../input section/InputSection';
 import food from "../../images/food-name.png";
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import ContainerLoginSignup from '../login and signup container/ContainerLoginSignup';
 import HeadingLoginSignup from '../heading login signup/HeadingLoginSignup';
 import url from "../../images/url.png";
@@ -27,10 +27,10 @@ const AddFoodItemForm = () => {
 
         e.preventDefault();
         const add = await addFood(foodNameRef.current?.value as string, foodImageRef.current?.value as string, foodPrice, discountPrice);
-        if (add==="error") {
+        if (add === "error") {
             alert("Unable to add food item");
         }
-        else{
+        else {
             if (foodNameRef.current && foodImageRef.current && foodPriceRef.current && foodDiscountPriceRef.current) {
                 foodNameRef.current.value = "";
                 foodImageRef.current.value = "";

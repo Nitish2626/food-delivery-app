@@ -22,7 +22,7 @@ export const userSignup = (req, res) => __awaiter(void 0, void 0, void 0, functi
             const hashedPassword = yield bcrypt.hash(password, 10);
             const newUser = yield userModel.create({ username, email, password: hashedPassword });
             yield newUser.save();
-            const token = createToken(newUser._id.toString(), newUser.email, "10d");
+            const token = createToken(newUser._id.toString(), newUser.username, newUser.email, "10d");
             const expires = new Date();
             expires.setDate(expires.getDate() + 10);
             res.cookie("Token", token, {
@@ -53,7 +53,7 @@ export const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 res.status(403).send("Incorrect Password");
             }
             else {
-                const token = createToken(findUser._id.toString(), findUser.email, "10d");
+                const token = createToken(findUser._id.toString(), findUser.username, findUser.email, "10d");
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 10);
                 res.cookie("Token", token, {
